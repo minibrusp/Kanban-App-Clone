@@ -10,14 +10,16 @@ export default {
       colors: {
         'slate-blue': '#585fc7',
         'light-slate-blue': '#8471f2',
+        perano: '#A8A4FF',
         'summer-sky': '#49c4e5',
-        'medium-aqumarine': '#67e2ae',
+        'medium-aquamarine': '#67e2ae',
         white: '#ffffff',
         'ship-cove': '#828fa3',
         'alice-blue': '#f4f7fd',
         'black-rock': '#2b2c37',
         'black-russian': '#20212c',
-        flamingo: '#ea5555'
+        flamingo: '#ea5555',
+        solitude: '#E4EBFA'
       }
     }
   },

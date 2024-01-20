@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+
+// store
 import { useKanbanStore } from './stores/kanbanStore'
+
+// components
+import Header from './components/Header'
 
 const kanbanStore = useKanbanStore()
 
@@ -12,7 +17,7 @@ console.log(kanbanStore.boards)
 </script>
 
 <template>
-  <div class="font-plus-jakarta-sans">
-    <h1 class="text-3xl font-bold underline text-sky-500">Hello</h1>
+  <div class="font-plus-jakarta-sans min-h-screen bg-alice-blue">
+    <Header />
   </div>
 </template>
