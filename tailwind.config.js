@@ -20,6 +20,9 @@ export default {
         'black-russian': '#20212c',
         flamingo: '#ea5555',
         solitude: '#E4EBFA'
+      },
+      content: {
+        arrowDownIcon: 'url("arrowDown.svg")'
       }
     }
   },

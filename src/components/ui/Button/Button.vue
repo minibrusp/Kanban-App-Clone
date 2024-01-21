@@ -19,6 +19,8 @@ const variantClass = computed(() => {
     case 'primary':
       result = 'bg-slate-blue hover:bg-perano '
       break
+    case 'secondary':
+      result = 'bg-slate-blue/10 hover:bg-slate-blue/25 '
   }
   return result
 })
@@ -27,7 +29,10 @@ const sizeClass = computed(() => {
   let result = ''
   switch (props.size) {
     case 'large':
-      result = 'py-3.5 px-6'
+      result = 'py-2 px-[18px] sm:py-3.5 sm:px-6'
+      break
+    case 'medium':
+      result = 'py-2'
   }
   return result
 })

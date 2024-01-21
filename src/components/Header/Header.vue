@@ -1,29 +1,19 @@
 <template>
   <header class="bg-white px-3 flex flex-row justify-start items-center">
-    <div class="pl-[3px] min-w-[277px] py-[22px] border-b border-b-transparent">
+    <div
+      class="max-w-[40px] overflow-x-hidden pl-[3px] py-4 border-b border-b-transparent sm:min-w-[277px] sm:py-[22px]"
+    >
       <h1 class="hidden">Kanban</h1>
       <Logo />
     </div>
     <div
-      class="border-b border-l border-solitude py-[22px] pl-6 flex flex-row justify-between items-center w-full"
+      class="py-4 flex flex-row justify-between items-center w-full sm:border-b sm:border-l sm:border-solitude sm:pl-6 sm:py-[22px]"
     >
-      <h2 class="font-bold text-black-russian text-lg">Platform Launch</h2>
-      <div class="flex flex-row justify-start items-center gap-4">
-        <Button :onClick="handleClickButton" variant="primary" size="large">
-          <span class="text-white text-sm font-bold">&plus; Add New Task</span>
-        </Button>
+      <BoardHeading />
 
-        <Popover>
-          <template #icon>
-            <MenuIcon />
-          </template>
-          <template #popmenu>
-            <div class="flex flex-col justify-start items-start gap-4">
-              <MenuItem variant="primary" text="Edit Board" :onClick="handleEditBoard" />
-              <MenuItem variant="danger" text="Delete Board" :onClick="handleDeleteBoard" />
-            </div>
-          </template>
-        </Popover>
+      <div class="flex flex-row justify-start items-center gap-1 sm:gap-4">
+        <AddTask />
+        <BoardMenu />
       </div>
     </div>
   </header>
@@ -31,20 +21,10 @@
 
 <script setup lang="ts">
 import Logo from '../ui/Logo'
-import MenuIcon from '../ui/MenuIcon'
-import Button from '../ui/Button'
-import Popover from '../ui/Popover'
-import MenuItem from '../ui/MenuItem'
 
-function handleClickButton() {
-  console.log('Button Add New Task Clicked')
-}
-
-function handleEditBoard() {
-  console.log('Edit Board Clicked')
-}
-function handleDeleteBoard() {
-  console.log('Delete Board Clicked')
-}
+// components
+import BoardHeading from './BoardHeading'
+import AddTask from './AddTask'
+import BoardMenu from './BoardMenu'
 </script>
 ../ui/MenuIcon
