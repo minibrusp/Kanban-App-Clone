@@ -17,7 +17,7 @@ import Button from '../../ui/Button'
 import Modal from '../../ui/Modal'
 import useModal from '../../../composables/useModal'
 
-import AddTaskForm from '../../Forms/AddTaskForm'
+import AddTaskForm from '../../Modals/Tasks/AddTaskForm'
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

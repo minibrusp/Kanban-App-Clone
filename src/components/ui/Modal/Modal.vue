@@ -6,7 +6,8 @@
       v-if="props.isOpen"
     >
       <div
-        class="modal bg-white p-6 rounded-xl shadow-lg max-w-[345px] w-full"
+        class="modal bg-white rounded-xl shadow-lg max-w-[345px] w-full"
+        :class="modalVariantClass"
         @click="(event) => event.stopPropagation()"
       >
         <slot></slot>
@@ -16,8 +17,24 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps({
   isOpen: Boolean,
-  close: Function
+  close: Function,
+  variant: String
+})
+
+const modalVariantClass = computed(() => {
+  let result = ''
+  switch (props.variant) {
+    case 'boards':
+      result = 'py-4 '
+      break
+    default:
+      result = 'p-6 '
+      break
+  }
+  return result
 })
 </script>

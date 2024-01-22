@@ -5,7 +5,7 @@
 
       <Modal :isOpen="isOpen" :close="closeModal">
         <EditBoardForm v-if="selected == 'edit'" />
-        <span v-if="selected == 'delete'">Delete Board Modal</span>
+        <DeleteBoard v-if="selected == 'delete'" />
       </Modal>
     </template>
     <template #popmenu>
@@ -24,7 +24,8 @@ import Popover from '../../ui/Popover'
 import MenuItem from '../../ui/MenuItem'
 import Modal from '../../ui/Modal'
 import useModal from '../../../composables/useModal'
-import EditBoardForm from '../../Forms/EditBoardForm'
+import EditBoardForm from '../../Modals/Boards/EditBoardForm'
+import DeleteBoard from '../../Modals/Boards/DeleteBoard'
 
 const { isOpen, toggleModal, closeModal } = useModal()
 
@@ -41,4 +42,3 @@ function handleDeleteBoard() {
   toggleModal()
 }
 </script>
-../../Forms/EditBoardForm

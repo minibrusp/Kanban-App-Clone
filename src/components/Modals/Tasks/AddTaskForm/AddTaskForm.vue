@@ -1,25 +1,24 @@
 <template>
   <h3 class="text-lg font-bold">Add New Task</h3>
   <form @submit.prevent="" class="mt-6 flex flex-col justify-start items-start gap-6">
-    <label class="flex flex-col justify-start items-start gap-2 w-full">
-      <span class="text-xs text-ship-cove font-bold">Title</span>
+    <Label title="Title">
       <input
         class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
         type="text"
         name="title"
         placeholder="e.g. Take coffee break"
       />
-    </label>
-    <label class="flex flex-col justify-start items-start gap-2 w-full">
-      <span class="text-xs text-ship-cove font-bold">Description</span>
+    </Label>
+
+    <Label title="Description">
       <textarea
-        class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-scroll placeholder:text-ship-cove/50 placeholder:font-light"
+        class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-hidden placeholder:text-ship-cove/50 placeholder:font-light"
         placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
         name="description"
       />
-    </label>
-    <label class="flex flex-col justify-start items-start gap-2 w-full">
-      <span class="text-xs text-ship-cove font-bold">Subtasks</span>
+    </Label>
+
+    <Label title="Subtasks">
       <div class="flex flex-row justify-start items-center gap-4 w-full">
         <input
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
@@ -40,24 +39,26 @@
           <span class="text-slate-blue font-bold text-[13px]">&plus; Add New Subtask</span>
         </Button>
       </div>
-    </label>
+    </Label>
 
-    <label class="flex flex-col justify-start items-start gap-2 w-full">
-      <span class="text-xs text-ship-cove font-bold">Status</span>
+    <Label title="Status">
       <Select name="status" id="">
         <option value="todo">Todo</option>
         <option value="doing">Doing</option>
         <option value="done">Done</option>
       </Select>
-    </label>
+    </Label>
 
-    <Button variant="primary" size="medium">
-      <span class="text-alice-blue font-bold text-[13px]">Create Task</span>
-    </Button>
+    <div class="w-full flex flex-row justify-start items-center gap-4">
+      <Button variant="primary" size="medium">
+        <span class="text-alice-blue font-bold text-[13px]">Create Task</span>
+      </Button>
+    </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import Button from '../../ui/Button'
-import Select from '../../ui/Select'
+import Button from '../../../ui/Button'
+import Select from '../../../ui/Select'
+import Label from '../../../ui/Form/Label'
 </script>

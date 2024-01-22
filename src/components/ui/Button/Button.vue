@@ -21,6 +21,10 @@ const variantClass = computed(() => {
       break
     case 'secondary':
       result = 'bg-slate-blue/10 hover:bg-slate-blue/25 '
+      break
+    case 'danger':
+      result = 'bg-flamingo hover:bg-flamingo/75 '
+      break
   }
   return result
 })
