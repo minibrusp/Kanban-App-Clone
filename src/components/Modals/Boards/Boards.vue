@@ -1,7 +1,9 @@
 <template>
   <div>
     <Boards :openCreateBoardFormModal="props.openCreateBoardFormModal" />
-    <ThemeSwitcher />
+    <div class="mx-4 mb-0 mt-4">
+      <ThemeSwitcher />
+    </div>
   </div>
 </template>
 

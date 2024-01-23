@@ -1,5 +1,52 @@
 <template>
-  <div></div>
+  <div class="h-full border-r border-r-solitude border-t border-t-white">
+    <aside
+      class="hidden sm:block bg-white min-w-[289px] h-[calc(100%_-_47px)] pt-8"
+      v-if="showSidebar"
+    >
+      <h3 class="hidden">SideBar</h3>
+      <div class="flex flex-col justify-between items-center h-full">
+        <div class="w-full">
+          <Boards :openCreateBoardFormModal="handleCreateBoardButtonClicked" />
+        </div>
+        <div class="px-6 w-full flex flex-col justify-center items-center gap-3 mb-2">
+          <ThemeSwitcher />
+        </div>
+      </div>
+    </aside>
+
+    <div
+      class="w-full pr-6 hidden sm:block"
+      :class="!showSidebar ? 'sm:fixed bottom-10 left-0' : ''"
+    >
+      <SidebarToggler :onClick="handleShowSidebar" :showSidebar="showSidebar" />
+    </div>
+  </div>
+  <Modal v-if="isOpen" :isOpen="isOpen" :close="closeModal">
+    <CreateBoardForm />
+  </Modal>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Boards from '../../ui/Boards'
+import ThemeSwitcher from '../../ui/ThemeSwitcher'
+import Modal from '../../ui/Modal'
+import SidebarToggler from './SidebarToggler'
+import useModal from '../../../composables/useModal'
+import CreateBoardForm from '../../Modals/Boards/CreateBoardForm'
+import { ref } from 'vue'
+
+const { isOpen, toggleModal, closeModal } = useModal()
+
+const showSidebar = ref(true)
+
+function handleCreateBoardButtonClicked() {
+  toggleModal()
+  console.log('Create Board Clicked')
+}
+
+function handleShowSidebar() {
+  showSidebar.value = !showSidebar.value
+  console.log('sidebar toggler clicked')
+}
+</script>

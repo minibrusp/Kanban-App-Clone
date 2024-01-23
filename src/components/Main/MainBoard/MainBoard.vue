@@ -1,5 +1,5 @@
 <template>
-  <section class="p-6 h-full overflow-scroll">
+  <section class="p-6 h-full overflow-scroll w-full">
     <h3 class="hidden">Main Board</h3>
     <div class="flex flex-row justify-start items-start gap-6 w-full h-full">
       <BoardColumn />

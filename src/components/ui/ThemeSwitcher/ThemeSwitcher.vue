@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-slate-blue/10 py-[14px] mx-4 mb-0 mt-4 sm:mx-6 rounded-md sm:mb-2 sm:mt-0 dark:bg-black-rock"
-  >
+  <div class="bg-slate-blue/10 py-[14px] rounded-md dark:bg-black-rock w-full block">
     <div class="flex items-center justify-center w-full gap-2">
       <div>
         <svg class="fill-ship-cove" width="19" height="19" xmlns="http://www.w3.org/2000/svg">
@@ -14,6 +12,9 @@
 
       <label
         class="w-10 h-5 bg-slate-blue hover:bg-slate-blue/50 rounded-xl p-[3px] block cursor-pointer"
+        tabindex="0"
+        @keydown.space="handleChange"
+        @keydown.enter="handleChange"
       >
         <input
           class="peer hidden"
