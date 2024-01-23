@@ -6,7 +6,7 @@
       v-if="props.isOpen"
     >
       <div
-        class="modal bg-white rounded-xl shadow-lg max-w-[345px] w-full"
+        class="modal bg-white rounded-xl shadow-lg w-full"
         :class="modalVariantClass"
         @click="(event) => event.stopPropagation()"
       >
@@ -29,10 +29,10 @@ const modalVariantClass = computed(() => {
   let result = ''
   switch (props.variant) {
     case 'boards':
-      result = 'py-4 '
+      result = 'py-4 max-w-[264px]'
       break
     default:
-      result = 'p-6 '
+      result = 'p-6 mx-4 sm:w-[480px]'
       break
   }
   return result

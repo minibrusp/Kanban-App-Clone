@@ -6,6 +6,7 @@ import { useKanbanStore } from './stores/kanbanStore'
 
 // components
 import Header from './components/Header'
+import Main from './components/Main'
 
 const kanbanStore = useKanbanStore()
 
@@ -17,7 +18,8 @@ console.log(kanbanStore.boards)
 </script>
 
 <template>
-  <div class="font-plus-jakarta-sans min-h-screen bg-alice-blue">
+  <div class="font-plus-jakarta-sans min-h-full bg-alice-blue">
     <Header />
+    <Main />
   </div>
 </template>
