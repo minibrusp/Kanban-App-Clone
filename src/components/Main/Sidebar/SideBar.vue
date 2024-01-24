@@ -7,7 +7,7 @@
       <h3 class="hidden">SideBar</h3>
       <div class="flex flex-col justify-between items-center h-full">
         <div class="w-full">
-          <Boards :openCreateBoardFormModal="handleCreateBoardButtonClicked" />
+          <Boards :boards="boards" :openCreateBoardFormModal="handleCreateBoardButtonClicked" />
         </div>
         <div class="px-6 w-full flex flex-col justify-center items-center gap-3 mb-2">
           <ThemeSwitcher />
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import { useKanbanStore } from '../../../stores/kanbanStore'
+
 import Boards from '../../ui/Boards'
 import ThemeSwitcher from '../../ui/ThemeSwitcher'
 import Modal from '../../ui/Modal'
@@ -35,6 +37,10 @@ import SidebarToggler from './SidebarToggler'
 import useModal from '../../../composables/useModal'
 import CreateBoardForm from '../../Modals/Boards/CreateBoardForm'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+
+const kanbanStore = useKanbanStore()
+const { boards } = storeToRefs(kanbanStore)
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

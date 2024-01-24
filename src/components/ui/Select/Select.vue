@@ -6,7 +6,7 @@
       :name="props.name"
       class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded appearance-none"
       :title="props.title"
-      @change="props.changeHandler"
+      @change="handleChange"
     >
       <slot></slot>
     </select>
@@ -19,4 +19,8 @@ const props = defineProps({
   title: String,
   changeHandler: Function
 })
+
+function handleChange(e) {
+  props.changeHandler(e.target.value)
+}
 </script>

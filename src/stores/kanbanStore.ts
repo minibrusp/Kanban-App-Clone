@@ -1,10 +1,25 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type Board from '@/types/Board'
 
 export const useKanbanStore = defineStore('kanbanStore', () => {
   const boards = ref<Board[]>([])
+  const selectedBoard = ref('0')
   const error = ref('')
+
+  // Getters
+  // Boards
+  const getSelectedBoard = computed(() => {
+    const result = boards.value.filter((board) => board.id === selectedBoard.value)
+    return result[0]
+  })
+
+  const getSelectedBoardColumns = computed(() => {
+    return getSelectedBoard.value.columns
+  })
+
+  // Mutations
+  // Boards
 
   async function getBoards() {
     try {
@@ -18,5 +33,17 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     }
   }
 
-  return { boards, getBoards, error }
+  function setSelectedBoard(id: string) {
+    selectedBoard.value = id
+  }
+
+  return {
+    boards,
+    getBoards,
+    error,
+    selectedBoard,
+    setSelectedBoard,
+    getSelectedBoard,
+    getSelectedBoardColumns
+  }
 })

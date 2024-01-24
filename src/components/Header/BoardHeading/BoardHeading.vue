@@ -4,7 +4,7 @@
       class="flex flex-row justify-start items-center gap-2 sm:hidden"
       @click="handleBoardModal"
     >
-      <span>Platform Launch</span>
+      <span>{{ kanbanStore.getSelectedBoard?.name }}</span>
       <span
         class="sm:hidden transition-transform duration-100 ease-in"
         :class="isOpen ? '-rotate-180' : ''"
@@ -19,12 +19,12 @@
         </svg>
       </span>
     </button>
-    <span class="hidden sm:block">Platform Launch</span>
+    <span class="hidden sm:block">{{ kanbanStore.getSelectedBoard?.name }}</span>
   </h2>
-  <Modal v-if="selected == 'boards'" :isOpen="isOpen" :close="closeModal" variant="boards">
+  <Modal v-if="selectedModal == 'boards'" :isOpen="isOpen" :close="closeModal" variant="boards">
     <BoardsModal :openCreateBoardFormModal="handleCreateBoardButtonClicked" />
   </Modal>
-  <Modal v-if="selected == 'create-board'" :isOpen="isOpen" :close="closeModal">
+  <Modal v-if="selectedModal == 'create-board'" :isOpen="isOpen" :close="closeModal">
     <CreateBoardForm />
   </Modal>
 </template>
@@ -35,18 +35,21 @@ import Modal from '../../ui/Modal'
 import useModal from '../../../composables/useModal'
 import { default as BoardsModal } from '../../Modals/Boards'
 import CreateBoardForm from '../../Modals/Boards/CreateBoardForm'
+import { useKanbanStore } from '../../../stores/kanbanStore'
 
-const selected = ref('')
+const kanbanStore = useKanbanStore()
+
+const selectedModal = ref('')
 
 const { isOpen, toggleModal, closeModal } = useModal()
 
 function handleBoardModal() {
-  selected.value = 'boards'
+  selectedModal.value = 'boards'
   console.log('BoardHeading Clicked')
   toggleModal()
 }
 function handleCreateBoardButtonClicked() {
-  selected.value = 'create-board'
+  selectedModal.value = 'create-board'
   console.log('Create Board Clicked')
 }
 </script>

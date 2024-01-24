@@ -10,7 +10,7 @@
     </button>
   </div>
   <Modal :isOpen="isOpen" :close="closeModal">
-    <AddColumnBoardForm />
+    <AddColumnBoardForm :board="getSelectedBoard" :close="closeModal" />
   </Modal>
 </template>
 
@@ -19,6 +19,12 @@ import Modal from '../../Modal'
 import AddColumnBoardForm from '../../../Modals/Boards/AddColumnBoardForm'
 
 import useModal from '../../../../composables/useModal'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+import { storeToRefs } from 'pinia'
+
+const kanbanStore = useKanbanStore()
+const { getSelectedBoard } = storeToRefs(kanbanStore)
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

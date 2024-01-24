@@ -4,7 +4,14 @@
       <div
         class="group/div bg-white text-ship-cove w-full flex flex-row justify-start items-center gap-3 pl-6 py-[14px] rounded-r-full text-[15px] font-bold leading-[19px] group-hover:bg-alice-blue group-hover:text-slate-blue group-hover:bg-slate-blue/10 has-[:checked]:bg-slate-blue has-[:checked]:text-alice-blue has-[:checked]:hover:bg-slate-blue has-[:checked]:hover:text-alice-blue"
       >
-        <input class="peer hidden" type="radio" name="boards" :value="props.name" />
+        <input
+          class="peer hidden"
+          type="radio"
+          name="boards"
+          :value="props.name"
+          :checked="id === selectedBoard ? true : false"
+          @change="handleChange"
+        />
         <svg
           width="16"
           height="16"
@@ -22,7 +29,18 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+
+const kanbanStore = useKanbanStore()
+const { selectedBoard } = storeToRefs(kanbanStore)
+
 const props = defineProps({
+  id: String,
   name: String
 })
+
+function handleChange() {
+  kanbanStore.setSelectedBoard(props.id)
+}
 </script>

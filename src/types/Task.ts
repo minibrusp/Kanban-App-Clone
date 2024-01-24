@@ -6,7 +6,7 @@ export default interface Task {
   subtasks: subtask[]
 }
 
-interface subtask {
+export interface subtask {
   title: string
-  isCompleted: true
+  isCompleted: boolean
 }

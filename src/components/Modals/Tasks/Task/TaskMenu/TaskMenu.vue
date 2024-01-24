@@ -4,7 +4,7 @@
       <MenuIcon />
 
       <Modal :isOpen="isOpen" :close="closeModal">
-        <EditTaskForm v-if="selected == 'edit'" />
+        <EditTaskForm v-if="selected == 'edit'" :task="props.task" />
         <DeleteTask v-if="selected == 'delete'" />
       </Modal>
     </template>
@@ -18,7 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, PropType } from 'vue'
+import type Task from '../../../../../types/Task'
 import MenuIcon from '../../../../ui/MenuIcon'
 import Popover from '../../../../ui/Popover'
 import MenuItem from '../../../../ui/MenuItem'
@@ -26,6 +27,12 @@ import Modal from '../../../../ui/Modal'
 import useModal from '../../../../../composables/useModal'
 import EditTaskForm from '../../EditTaskForm'
 import DeleteTask from '../../../Tasks/DeleteTask'
+
+const props = defineProps({
+  task: {
+    type: Object as PropType<Task>
+  }
+})
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

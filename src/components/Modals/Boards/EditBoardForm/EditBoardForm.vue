@@ -7,51 +7,22 @@
         type="text"
         name="name"
         placeholder="e.g. Take coffee break"
-        value="test board"
+        :value="props.board.name"
       />
     </Label>
 
     <Label title="Columns">
-      <div class="flex flex-row justify-start items-center gap-4 w-full">
+      <div
+        v-for="column in props.board.columns"
+        :key="column.name"
+        class="flex flex-row justify-start items-center gap-4 w-full"
+      >
         <input
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
           type="text"
           placeholder="column name"
-          value="Todo"
-        />
-        <button>
-          <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
-            <g fill-rule="evenodd">
-              <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
-              <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"></path>
-            </g>
-          </svg>
-        </button>
-      </div>
-
-      <div class="flex flex-row justify-start items-center gap-4 w-full">
-        <input
-          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
-          type="text"
-          placeholder="column name"
-          value="Doing"
-        />
-        <button>
-          <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
-            <g fill-rule="evenodd">
-              <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
-              <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"></path>
-            </g>
-          </svg>
-        </button>
-      </div>
-
-      <div class="flex flex-row justify-start items-center gap-4 w-full">
-        <input
-          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
-          type="text"
-          placeholder="column name"
-          value="Done"
+          :value="column.name"
+          :name="column.name"
         />
         <button>
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
@@ -74,7 +45,7 @@
       <Button variant="primary" size="medium">
         <span class="text-alice-blue font-bold text-[13px]">Save Changes</span>
       </Button>
-      <Button variant="secondary" size="medium">
+      <Button variant="secondary" size="medium" @click="props.close()">
         <span class="text-slate-blue font-bold text-[13px]">Cancel</span>
       </Button>
     </div>
@@ -82,6 +53,16 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
+import type Board from '../../../../types/Board'
+
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
+
+const props = defineProps({
+  board: {
+    type: Object as PropType<Board>
+  },
+  close: Function
+})
 </script>

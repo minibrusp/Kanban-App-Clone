@@ -7,6 +7,7 @@
         type="text"
         name="title"
         placeholder="e.g. Take coffee break"
+        :value="props.task.title"
       />
     </Label>
 
@@ -15,15 +16,21 @@
         class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-hidden placeholder:text-ship-cove/50 placeholder:font-light"
         placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
         name="description"
+        :value="props.task.description"
       />
     </Label>
 
     <Label title="Subtasks">
-      <div class="flex flex-row justify-start items-center gap-4 w-full">
+      <div
+        v-for="subtask in props.task.subtasks"
+        :key="subtask.title"
+        class="flex flex-row justify-start items-center gap-4 w-full"
+      >
         <input
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
           type="text"
           placeholder="e.g. Make coffee"
+          :value="subtask.title"
         />
         <button>
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
@@ -42,10 +49,15 @@
     </Label>
 
     <Label title="Status">
-      <Select name="status" id="">
-        <option value="todo">Todo</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
+      <Select name="status">
+        <option
+          v-for="status in getSelectedBoardColumns"
+          :key="status.id"
+          :value="status.name"
+          :selected="props.task.status === status.name ? true : false"
+        >
+          {{ status.name }}
+        </option>
       </Select>
     </Label>
 
@@ -58,7 +70,21 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
+import type Task from '../../../../types/Task'
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
 import Select from '../../../ui/Select'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+import { storeToRefs } from 'pinia'
+
+const kanbanStore = useKanbanStore()
+const { getSelectedBoardColumns } = storeToRefs(kanbanStore)
+
+const props = defineProps({
+  task: {
+    type: Object as PropType<Task>
+  }
+})
 </script>

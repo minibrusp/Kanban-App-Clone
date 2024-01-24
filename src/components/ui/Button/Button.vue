@@ -1,5 +1,10 @@
 <template>
-  <button class="w-full rounded-full" :class="variantClass + sizeClass" @click="props.onClick">
+  <button
+    type="button"
+    class="w-full rounded-full"
+    :class="variantClass + sizeClass"
+    @click="props.onClick"
+  >
     <slot></slot>
   </button>
 </template>

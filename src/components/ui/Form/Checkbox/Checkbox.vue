@@ -11,6 +11,7 @@
       placeholder="column name"
       :name="props.name?.toLowerCase()"
       @change="handleChange"
+      :checked="$props.isCompeleted"
     />
     <div
       class="w-4 h-4 border flex justify-center items-center bg-white border-ship-cove/25 cursor-pointer peer-checked:bg-slate-blue"
@@ -29,7 +30,8 @@
 <script setup lang="ts">
 const props = defineProps({
   name: String,
-  onChange: Function
+  onChange: Function,
+  isCompeleted: Boolean
 })
 
 function handleChange() {

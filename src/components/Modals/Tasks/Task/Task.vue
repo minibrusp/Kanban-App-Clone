@@ -1,29 +1,58 @@
 <template>
   <div class="flex flex-row justify-between items-center">
-    <h3 class="text-lg font-bold text-black-russian">Build UI for onboarding flow</h3>
-    <TaskMenu />
+    <h3 class="text-lg font-bold text-black-russian">{{ props.task.title }}</h3>
+    <TaskMenu :task="task" />
   </div>
 
-  <FieldSet name="Subtasks (1 of 3)">
+  <FieldSet
+    :name="'Subtasks (' + props.completedSubtasks + ' of ' + props.task.subtasks.length + ')'"
+  >
     <div class="flex flex-col justify-start items-center gap-2">
-      <Checkbox name="Search page" />
-      <Checkbox name="Sign in page" />
-      <Checkbox name="Welcome page" />
+      <Checkbox
+        v-for="subtask in props.task.subtasks"
+        :key="subtask.title"
+        :name="subtask.title"
+        :isCompeleted="subtask.isCompleted"
+      />
     </div>
   </FieldSet>
 
   <FieldSet name="Current Status">
-    <Select name="status" id="">
-      <option value="todo">Todo</option>
-      <option value="doing">Doing</option>
-      <option value="done">Done</option>
+    <Select name="status" :changeHandler="handleStatusChange">
+      <option
+        v-for="status in getSelectedBoardColumns"
+        :key="status.id"
+        :value="status.name"
+        :selected="props.task.status === status.name ? true : false"
+      >
+        {{ status.name }}
+      </option>
     </Select>
   </FieldSet>
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
+import type Task from '../../../../types/Task'
 import TaskMenu from './TaskMenu'
 import FieldSet from '../../../ui/Form/FieldSet'
 import Checkbox from '../../../ui/Form/Checkbox'
 import Select from '../../../ui/Select'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+import { storeToRefs } from 'pinia'
+
+const kanbanStore = useKanbanStore()
+const { getSelectedBoardColumns } = storeToRefs(kanbanStore)
+
+const props = defineProps({
+  task: {
+    type: Object as PropType<Task>
+  },
+  completedSubtasks: Number
+})
+
+function handleStatusChange(e) {
+  console.log('status changed ' + e)
+}
 </script>
