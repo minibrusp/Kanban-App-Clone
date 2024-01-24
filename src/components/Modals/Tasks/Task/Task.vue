@@ -4,6 +4,10 @@
     <TaskMenu :task="task" />
   </div>
 
+  <div class="mt-6">
+    <p class="text-[13px] font-medium leading-[23px] text-ship-cove">{{ task.description }}</p>
+  </div>
+
   <FieldSet
     :name="'Subtasks (' + props.completedSubtasks + ' of ' + props.task.subtasks.length + ')'"
   >
