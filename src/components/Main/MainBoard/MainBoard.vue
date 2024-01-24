@@ -3,9 +3,10 @@
     <h3 class="hidden">Main Board</h3>
     <div class="flex flex-row justify-start items-start gap-6 w-full h-full">
       <BoardColumn
-        v-for="column in getSelectedBoard?.columns"
+        v-for="(column, index) in getSelectedBoard?.columns"
         :key="column.name"
         :column="column"
+        :index="index"
       />
       <AddColumn />
     </div>
