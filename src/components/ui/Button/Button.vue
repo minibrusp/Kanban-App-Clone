@@ -1,6 +1,6 @@
 <template>
   <button
-    type="button"
+    :type="buttonType"
     class="w-full rounded-full"
     :class="variantClass + sizeClass"
     @click="props.onClick"
@@ -15,7 +15,13 @@ import { computed } from 'vue'
 const props = defineProps({
   onClick: Function,
   variant: String,
-  size: String
+  size: String,
+  type: String
+})
+
+const buttonType = computed(() => {
+  if (props.type === 'submit') return 'submit'
+  else return 'button'
 })
 
 const variantClass = computed(() => {

@@ -6,6 +6,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
   const boards = ref<Board[]>([])
   const selectedBoard = ref('0')
   const error = ref('')
+  const loading = ref(false)
 
   // Getters
   // Boards
@@ -37,6 +38,14 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     selectedBoard.value = id
   }
 
+  function createNewBoard(board: object) {
+    loading.value = true
+    const id = boards.value.length.toString()
+    const newBoard = { id, ...board } as Board
+    boards.value = [...boards.value, newBoard]
+    loading.value = false
+  }
+
   return {
     boards,
     getBoards,
@@ -44,6 +53,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     selectedBoard,
     setSelectedBoard,
     getSelectedBoard,
-    getSelectedBoardColumns
+    getSelectedBoardColumns,
+    createNewBoard
   }
 })

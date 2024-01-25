@@ -23,7 +23,7 @@
     </div>
   </div>
   <Modal v-if="isOpen" :isOpen="isOpen" :close="closeModal">
-    <CreateBoardForm />
+    <CreateBoardForm :close="closeModal" />
   </Modal>
 </template>
 

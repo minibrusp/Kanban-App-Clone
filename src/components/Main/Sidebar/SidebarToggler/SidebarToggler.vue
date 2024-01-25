@@ -1,10 +1,10 @@
 <template>
   <button
-    class="group w-full flex flex-row justify-start items-center gap-3 pl-6 pr-6 py-[14px] rounded-r-full"
+    class="group flex flex-row justify-start items-center gap-3 pl-6 pr-6 py-[14px] rounded-r-full"
     :class="
       !props.showSidebar
         ? 'bg-slate-blue hover:bg-perano w-[52px] py-[18px] pl-[18px] pr-[18px]'
-        : 'bg-white hover:bg-slate-blue/10'
+        : 'bg-white hover:bg-slate-blue/10 w-full'
     "
     @click="handleClick"
   >
