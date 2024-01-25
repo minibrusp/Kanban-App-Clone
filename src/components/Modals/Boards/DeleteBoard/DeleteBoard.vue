@@ -8,10 +8,10 @@
 
   <div class="mt-6 flex flex-col justify-start items-start gap-6">
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="danger" size="medium">
+      <Button variant="danger" size="medium" :onClick="handleDelete">
         <span class="text-alice-blue font-bold text-[13px]">Delete</span>
       </Button>
-      <Button variant="secondary" size="medium">
+      <Button variant="secondary" size="medium" :onClick="props.close">
         <span class="text-slate-blue font-bold text-[13px]">Cancel</span>
       </Button>
     </div>
@@ -20,4 +20,17 @@
 
 <script setup lang="ts">
 import Button from '../../../ui/Button'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+
+const kanbanStore = useKanbanStore()
+
+const props = defineProps({
+  close: Function
+})
+
+function handleDelete() {
+  kanbanStore.deleteBoard()
+  props.close()
+}
 </script>

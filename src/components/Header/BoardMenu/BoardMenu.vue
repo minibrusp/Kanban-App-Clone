@@ -5,7 +5,7 @@
 
       <Modal :isOpen="isOpen" :close="closeModal">
         <EditBoardForm v-if="selected == 'edit'" :board="getSelectedBoard" :close="closeModal" />
-        <DeleteBoard v-if="selected == 'delete'" />
+        <DeleteBoard v-if="selected == 'delete'" :close="closeModal" />
       </Modal>
     </template>
     <template #popmenu>
