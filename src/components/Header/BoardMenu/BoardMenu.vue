@@ -4,7 +4,7 @@
       <MenuIcon />
 
       <Modal :isOpen="isOpen" :close="closeModal">
-        <EditBoardForm v-if="selected == 'edit'" :board="getSelectedBoard" :close="closeModal" />
+        <EditBoardForm v-if="selected == 'edit'" :close="closeModal" />
         <DeleteBoard v-if="selected == 'delete'" :close="closeModal" />
       </Modal>
     </template>
@@ -26,12 +26,6 @@ import Modal from '../../ui/Modal'
 import useModal from '../../../composables/useModal'
 import EditBoardForm from '../../Modals/Boards/EditBoardForm'
 import DeleteBoard from '../../Modals/Boards/DeleteBoard'
-
-import { useKanbanStore } from '../../../stores/kanbanStore'
-import { storeToRefs } from 'pinia'
-
-const kanbanStore = useKanbanStore()
-const { getSelectedBoard } = storeToRefs(kanbanStore)
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

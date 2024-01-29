@@ -46,6 +46,17 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     loading.value = false
   }
 
+  function editBoard(newBoard: Board) {
+    loading.value = true
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== newBoard.id) return board
+      else return newBoard
+    })
+
+    loading.value = false
+  }
+
   function deleteBoard() {
     const id = getSelectedBoard.value.id
     boards.value = boards.value.filter((board) => board.id !== id)
@@ -61,6 +72,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     getSelectedBoard,
     getSelectedBoardColumns,
     createNewBoard,
+    editBoard,
     deleteBoard
   }
 })

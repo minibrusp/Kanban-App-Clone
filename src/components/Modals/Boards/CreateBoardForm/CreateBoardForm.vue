@@ -22,12 +22,12 @@
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
           type="text"
           :placeholder="
-            columnsPlaceholders[index] ? columnsPlaceholders[index] : 'Your Column title'
+            columnsPlaceholders[index] ? columnsPlaceholders[index] : 'Your Column name'
           "
           :name="column.name"
           v-model="column.name"
         />
-        <button @click="handleDeleteColumn(index)">
+        <button type="button" @click="handleDeleteColumn(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
             <g fill-rule="evenodd">
               <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
@@ -82,12 +82,18 @@ const columnsPlaceholders = {
 
 function handleAddColumn() {
   console.log('Add new column clicked')
-  board.columns.push({ name: '', tasks: [] })
+  board.columns.push({ id: board.columns.length.toString(), name: '', tasks: [] })
 }
 
 function handleDeleteColumn(index: number) {
   console.log('Delete column clicked')
   board.columns.splice(index, 1)
+  board.columns = board.columns.map((column, index) => {
+    return {
+      ...column,
+      id: index.toString()
+    }
+  })
 }
 
 function handleSubmit() {
