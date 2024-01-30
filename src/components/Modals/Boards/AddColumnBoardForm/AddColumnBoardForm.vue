@@ -7,23 +7,26 @@
         type="text"
         name="name"
         placeholder="e.g. Take coffee break"
-        :value="props.board.name"
+        v-model="board.name"
       />
     </Label>
 
     <Label title="Columns">
       <div
-        v-for="column in props.board.columns"
-        :key="column.name"
+        v-for="(column, index) in board.columns"
+        :key="index"
         class="flex flex-row justify-start items-center gap-4 w-full"
       >
         <input
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
           type="text"
-          placeholder="column name"
-          :value="column.name"
+          :placeholder="
+            columnsPlaceholders[index] ? columnsPlaceholders[index] : 'Your Column name'
+          "
+          v-model="column.name"
+          :name="column.name"
         />
-        <button>
+        <button type="button" @click="handleDeleteColumn(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
             <g fill-rule="evenodd">
               <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
@@ -34,17 +37,17 @@
       </div>
 
       <div class="mt-3 w-full">
-        <Button variant="secondary" size="medium">
+        <Button variant="secondary" size="medium" :onClick="handleAddColumn">
           <span class="text-slate-blue font-bold text-[13px]">&plus; Add New Column</span>
         </Button>
       </div>
     </Label>
 
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="primary" size="medium">
+      <Button variant="primary" size="medium" :onClick="handleSubmit">
         <span class="text-alice-blue font-bold text-[13px]">Save Changes</span>
       </Button>
-      <Button variant="secondary" size="medium" @click.prevent="props.close">
+      <Button variant="secondary" size="medium" :onClick="handleCancelForm">
         <span class="text-slate-blue font-bold text-[13px]">Cancel</span>
       </Button>
     </div>
@@ -52,15 +55,61 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { PropType, reactive } from 'vue'
+import { useKanbanStore } from '../../../../stores/kanbanStore'
 import type Board from '../../../../types/Board'
+
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
 
+import { storeToRefs } from 'pinia'
+
+const kanbanStore = useKanbanStore()
+const { getSelectedBoard } = storeToRefs(kanbanStore)
+
 const props = defineProps({
-  board: { type: Object as PropType<Board> },
   close: Function
 })
+
+const board = reactive({
+  id: JSON.parse(JSON.stringify(getSelectedBoard.value.id)),
+  name: JSON.parse(JSON.stringify(getSelectedBoard.value.name)),
+  columns: JSON.parse(JSON.stringify(getSelectedBoard.value.columns))
+})
+
+const columnsPlaceholders = {
+  0: 'e.g. Todo...',
+  1: 'e.g. Doing...',
+  2: 'e.g. Done...'
+}
+
+function handleAddColumn() {
+  console.log('Add new column clicked')
+  board.columns.push({ id: board.columns.length.toString(), name: '', tasks: [] })
+}
+
+function handleDeleteColumn(index: number) {
+  console.log('Delete column clicked')
+  board.columns.splice(index, 1)
+  board.columns = board.columns.map((column, index) => {
+    return {
+      ...column,
+      id: index.toString()
+    }
+  })
+}
+
+function handleSubmit() {
+  console.log('Create Board Submit clicked')
+  kanbanStore.editBoard(board)
+  props.close()
+}
+
+function handleCancelForm() {
+  props.close()
+}
+
+// sdsadksladksaldksa
 
 function submit(e) {
   e.preventDefault()
