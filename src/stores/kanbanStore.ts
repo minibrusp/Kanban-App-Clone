@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type Board from '@/types/Board'
+import type Task from '@/types/Task'
 
 export const useKanbanStore = defineStore('kanbanStore', () => {
   const boards = ref<Board[]>([])
@@ -63,6 +64,26 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     setSelectedBoard('0')
   }
 
+  // Tasks
+
+  function addNewTask(task: Task) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== task.status) return column
+          return {
+            ...column,
+            tasks: [...column.tasks, task]
+          }
+        })
+      }
+    })
+  }
+
   return {
     boards,
     getBoards,
@@ -73,6 +94,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     getSelectedBoardColumns,
     createNewBoard,
     editBoard,
-    deleteBoard
+    deleteBoard,
+    addNewTask
   }
 })

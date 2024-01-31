@@ -8,7 +8,7 @@
     <span class="hidden sm:block text-white text-sm font-bold">&plus; Add New Task</span>
   </Button>
   <Modal :isOpen="isOpen" :close="closeModal">
-    <AddTaskForm />
+    <AddTaskForm :close="closeModal" />
   </Modal>
 </template>
 
