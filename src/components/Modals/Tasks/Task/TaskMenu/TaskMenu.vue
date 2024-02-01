@@ -5,7 +5,7 @@
 
       <Modal :isOpen="isOpen" :close="closeModal">
         <EditTaskForm v-if="selected == 'edit'" :task="props.task" />
-        <DeleteTask v-if="selected == 'delete'" />
+        <DeleteTask v-if="selected == 'delete'" :task="props.task" :close="closeModal" />
       </Modal>
     </template>
     <template #popmenu>

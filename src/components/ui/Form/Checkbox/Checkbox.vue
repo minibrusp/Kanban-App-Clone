@@ -34,8 +34,8 @@ const props = defineProps({
   isCompeleted: Boolean
 })
 
-function handleChange() {
-  console.log('checkbox change')
+function handleChange(e) {
+  props.onChange(e.target.name)
 }
 
 function handleClick(e) {

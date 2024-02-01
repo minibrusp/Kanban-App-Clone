@@ -17,6 +17,7 @@
         :key="subtask.title"
         :name="subtask.title"
         :isCompeleted="subtask.isCompleted"
+        :onChange="handleSubtaskIsCompleted"
       />
     </div>
   </FieldSet>
@@ -56,7 +57,15 @@ const props = defineProps({
   completedSubtasks: Number
 })
 
-function handleStatusChange(e) {
-  console.log('status changed ' + e)
+function handleStatusChange(newStatus: string) {
+  console.log('status changed ' + newStatus)
+  kanbanStore.setTaskStatus(props.task, newStatus)
+}
+
+function handleSubtaskIsCompleted(subtaskTitle: string) {
+  console.log('subtask isCompleted changed ')
+  console.log(subtaskTitle)
+
+  kanbanStore.toggleSubtaskIsCompleted(props.task, subtaskTitle)
 }
 </script>

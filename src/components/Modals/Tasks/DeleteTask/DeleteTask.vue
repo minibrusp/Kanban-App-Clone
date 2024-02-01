@@ -8,10 +8,10 @@
 
   <div class="mt-6 flex flex-col justify-start items-start gap-6">
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="danger" size="medium">
+      <Button type="button" variant="danger" size="medium" :onClick="handleDeleteClick">
         <span class="text-alice-blue font-bold text-[13px]">Delete</span>
       </Button>
-      <Button variant="secondary" size="medium">
+      <Button type="button" variant="secondary" size="medium" :onClick="handleCancelClick">
         <span class="text-slate-blue font-bold text-[13px]">Cancel</span>
       </Button>
     </div>
@@ -19,5 +19,29 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
 import Button from '../../../ui/Button'
+import Task from '../../../../types/Task'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+
+const kanbanStore = useKanbanStore()
+
+const props = defineProps({
+  task: {
+    type: Object as PropType<Task>
+  },
+  close: Function
+})
+
+function handleDeleteClick() {
+  console.log('Delete Task Modal: delete button clicked')
+  kanbanStore.deleteTask(props.task)
+  props.close()
+}
+
+function handleCancelClick() {
+  console.log('Delete Task Modal: cancel button clicked')
+  props.close()
+}
 </script>

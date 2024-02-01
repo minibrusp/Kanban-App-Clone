@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import type Board from '@/types/Board'
 import type Task from '@/types/Task'
 
@@ -41,7 +42,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
 
   function createNewBoard(board: object) {
     loading.value = true
-    const id = boards.value.length.toString()
+    const id = uuidv4()
     const newBoard = { id, ...board } as Board
     boards.value = [...boards.value, newBoard]
     loading.value = false
@@ -68,6 +69,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
 
   function addNewTask(task: Task) {
     const selectedBoardId = getSelectedBoard.value.id
+    const taskId = uuidv4()
 
     boards.value = boards.value.map((board) => {
       if (board.id !== selectedBoardId) return board
@@ -77,7 +79,81 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
           if (column.name !== task.status) return column
           return {
             ...column,
-            tasks: [...column.tasks, task]
+            tasks: [...column.tasks, { ...task, id: taskId }]
+          }
+        })
+      }
+    })
+  }
+
+  function deleteTask(currentTask: Task) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== currentTask.status) return column
+          return {
+            ...column,
+            tasks: column.tasks.filter((task) => {
+              return task.id !== currentTask.id
+            })
+          }
+        })
+      }
+    })
+  }
+
+  function setTaskStatus(currentTask: Task, newStatus: string) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    deleteTask(currentTask)
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== newStatus) return column
+          return {
+            ...column,
+            tasks: [...column.tasks, { ...currentTask, status: newStatus } as Task]
+          }
+        })
+      }
+    })
+  }
+
+  // subtasks
+
+  function toggleSubtaskIsCompleted(currentTask: Task, subtaskTitle: string) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== currentTask.status) return column
+          return {
+            ...column,
+            tasks: column.tasks.map((task) => {
+              if (task.id !== currentTask.id) return task
+              return {
+                ...task,
+                subtasks: [
+                  ...task.subtasks.map((subtask) => {
+                    if (subtask.title !== subtaskTitle) return subtask
+                    return {
+                      ...subtask,
+                      isCompleted: !subtask.isCompleted
+                    }
+                  })
+                ]
+              }
+            })
           }
         })
       }
@@ -95,6 +171,9 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     createNewBoard,
     editBoard,
     deleteBoard,
-    addNewTask
+    addNewTask,
+    deleteTask,
+    setTaskStatus,
+    toggleSubtaskIsCompleted
   }
 })
