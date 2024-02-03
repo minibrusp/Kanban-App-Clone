@@ -88,7 +88,8 @@ const { getSelectedBoardColumns } = storeToRefs(kanbanStore)
 const props = defineProps({
   task: {
     type: Object as PropType<Task>
-  }
+  },
+  close: Function
 })
 
 const localTask = reactive({
@@ -124,6 +125,6 @@ function handleStatusChange(value: string) {
 function handleSubmit() {
   console.log('Create Task clicked')
   kanbanStore.editTask(localTask, props.task)
-  // props.close()
+  props.close()
 }
 </script>

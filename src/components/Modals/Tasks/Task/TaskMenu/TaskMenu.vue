@@ -4,7 +4,7 @@
       <MenuIcon />
 
       <Modal :isOpen="isOpen" :close="closeModal">
-        <EditTaskForm v-if="selected == 'edit'" :task="props.task" />
+        <EditTaskForm v-if="selected == 'edit'" :task="props.task" :close="closeModal" />
         <DeleteTask v-if="selected == 'delete'" :task="props.task" :close="closeModal" />
       </Modal>
     </template>

@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 import type Board from '@/types/Board'
 import type Task from '@/types/Task'
 
+const BOARDS_LOCAL_STORAGE_KEY = 'boards'
+
 export const useKanbanStore = defineStore('kanbanStore', () => {
   const boards = ref<Board[]>([])
   const selectedBoard = ref('0')
@@ -25,11 +27,21 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
   // Boards
 
   async function getBoards() {
+    const localStorageBoard = localStorage.getItem(BOARDS_LOCAL_STORAGE_KEY)
+
+    if (localStorageBoard) {
+      boards.value = JSON.parse(localStorageBoard)
+      return
+    }
+
     try {
       const res = await fetch('http://localhost:3000/boards')
       const data = await res.json()
 
-      if (res.ok) boards.value = data
+      if (res.ok) {
+        boards.value = data
+        saveBoardToLocalStorage()
+      }
     } catch (error) {
       console.log(error)
       // error.value = error
@@ -40,11 +52,20 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     selectedBoard.value = id
   }
 
+  function saveBoardToLocalStorage() {
+    localStorage.setItem(BOARDS_LOCAL_STORAGE_KEY, JSON.stringify(boards.value))
+  }
+
   function createNewBoard(board: object) {
     loading.value = true
     const id = uuidv4()
     const newBoard = { id, ...board } as Board
     boards.value = [...boards.value, newBoard]
+
+    saveBoardToLocalStorage()
+
+    setSelectedBoard(id)
+
     loading.value = false
   }
 
@@ -56,6 +77,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
       else return newBoard
     })
 
+    saveBoardToLocalStorage()
+
     loading.value = false
   }
 
@@ -63,6 +86,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     const id = getSelectedBoard.value.id
     boards.value = boards.value.filter((board) => board.id !== id)
     setSelectedBoard('0')
+
+    saveBoardToLocalStorage()
   }
 
   // Tasks
@@ -84,6 +109,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
         })
       }
     })
+
+    saveBoardToLocalStorage()
   }
 
   function deleteTask(currentTask: Task) {
@@ -104,6 +131,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
         })
       }
     })
+
+    saveBoardToLocalStorage()
   }
 
   function editTask(editedTask: Task, oldTask: Task) {
@@ -130,6 +159,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
         })
       }
     })
+
+    saveBoardToLocalStorage()
   }
 
   function setTaskStatus(currentTask: Task, newStatus: string) {
@@ -150,6 +181,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
         })
       }
     })
+
+    saveBoardToLocalStorage()
   }
 
   // subtasks
@@ -184,6 +217,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
         })
       }
     })
+
+    saveBoardToLocalStorage()
   }
 
   return {
