@@ -7,7 +7,7 @@
         type="text"
         name="title"
         placeholder="e.g. Take coffee break"
-        :value="props.task.title"
+        v-model="localTask.title"
       />
     </Label>
 
@@ -16,23 +16,26 @@
         class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-hidden placeholder:text-ship-cove/50 placeholder:font-light"
         placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
         name="description"
-        :value="props.task.description"
+        v-model="localTask.description"
       />
     </Label>
 
     <Label title="Subtasks">
       <div
-        v-for="subtask in props.task.subtasks"
-        :key="subtask.title"
+        v-for="(subtask, index) in localTask.subtasks"
+        :key="subtask.index"
         class="flex flex-row justify-start items-center gap-4 w-full"
       >
         <input
           class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
           type="text"
-          placeholder="e.g. Make coffee"
-          :value="subtask.title"
+          :placeholder="
+            subtasksPlaceholders[index] ? subtasksPlaceholders[index] : 'Your Column name'
+          "
+          v-model="subtask.title"
+          :name="subtask.index"
         />
-        <button>
+        <button type="button" @click="handleDeleteSubtask(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
             <g fill-rule="evenodd">
               <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
@@ -42,14 +45,14 @@
         </button>
       </div>
       <div class="mt-3 w-full">
-        <Button variant="secondary" size="medium">
+        <Button type="button" variant="secondary" size="medium" :onClick="handleAddSubtask">
           <span class="text-slate-blue font-bold text-[13px]">&plus; Add New Subtask</span>
         </Button>
       </div>
     </Label>
 
     <Label title="Status">
-      <Select name="status">
+      <Select name="status" :changeHandler="handleStatusChange">
         <option
           v-for="status in getSelectedBoardColumns"
           :key="status.id"
@@ -62,7 +65,7 @@
     </Label>
 
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="primary" size="medium">
+      <Button variant="primary" size="medium" :onClick="handleSubmit">
         <span class="text-alice-blue font-bold text-[13px]">Save Changes</span>
       </Button>
     </div>
@@ -70,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { PropType, reactive } from 'vue'
 import type Task from '../../../../types/Task'
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
@@ -87,4 +90,40 @@ const props = defineProps({
     type: Object as PropType<Task>
   }
 })
+
+const localTask = reactive({
+  id: JSON.parse(JSON.stringify(props.task.id)),
+  title: JSON.parse(JSON.stringify(props.task.title)),
+  description: JSON.parse(JSON.stringify(props.task.description)),
+  status: JSON.parse(JSON.stringify(props.task.status)),
+  subtasks: JSON.parse(JSON.stringify(props.task.subtasks))
+})
+
+const subtasksPlaceholders = {
+  0: 'e.g. Todo...',
+  1: 'e.g. Doing...',
+  2: 'e.g. Done...'
+}
+
+function handleAddSubtask() {
+  console.log('Add new column clicked')
+  localTask.subtasks.push({ title: '', isCompleted: false })
+}
+
+function handleDeleteSubtask(index: number) {
+  console.log('Delete column clicked')
+  localTask.subtasks.splice(index, 1)
+}
+
+function handleStatusChange(value: string) {
+  console.log('Status changed')
+  console.log(value)
+  localTask.status = value
+}
+
+function handleSubmit() {
+  console.log('Create Task clicked')
+  kanbanStore.editTask(localTask, props.task)
+  // props.close()
+}
 </script>

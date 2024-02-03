@@ -106,6 +106,32 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     })
   }
 
+  function editTask(editedTask: Task, oldTask: Task) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    setTaskStatus(oldTask, editedTask.status)
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (editedTask.status !== column.name) return column
+          return {
+            ...column,
+            tasks: column.tasks.map((task) => {
+              if (column.tasks.length > 0) {
+                if (task.id !== editedTask.id) return task
+                return editedTask
+              }
+              return editedTask
+            })
+          }
+        })
+      }
+    })
+  }
+
   function setTaskStatus(currentTask: Task, newStatus: string) {
     const selectedBoardId = getSelectedBoard.value.id
 
@@ -172,6 +198,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     editBoard,
     deleteBoard,
     addNewTask,
+    editTask,
     deleteTask,
     setTaskStatus,
     toggleSubtaskIsCompleted

@@ -25,7 +25,7 @@
     <BoardsModal :openCreateBoardFormModal="handleCreateBoardButtonClicked" />
   </Modal>
   <Modal v-if="selectedModal == 'create-board'" :isOpen="isOpen" :close="closeModal">
-    <CreateBoardForm />
+    <CreateBoardForm :close="closeModal" />
   </Modal>
 </template>
 
