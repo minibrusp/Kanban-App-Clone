@@ -1,9 +1,11 @@
 <template>
-  <h3 class="text-lg font-bold">Edit Board</h3>
+  <h3 class="text-lg font-bold text-black-russian dark:bg-black-rock dark:text-alice-blue">
+    Edit Board
+  </h3>
   <form @submit.prevent="" class="mt-6 flex flex-col justify-start items-start gap-6">
     <Label title="Name">
       <input
-        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
         type="text"
         name="name"
         placeholder="e.g. Take coffee break"
@@ -18,7 +20,7 @@
         class="flex flex-row justify-start items-center gap-4 w-full"
       >
         <input
-          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
           type="text"
           :placeholder="
             columnsPlaceholders[index] ? columnsPlaceholders[index] : 'Your Column name'

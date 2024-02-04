@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full border-r border-r-solitude border-t border-t-white">
+  <div class="h-full border-r border-r-solitude dark:border-ship-cove/25">
     <aside
-      class="hidden sm:block bg-white min-w-[289px] h-[calc(100%_-_47px)] pt-8"
+      class="hidden sm:block bg-white min-w-[289px] h-[calc(100%_-_47px)] pt-8 dark:bg-black-rock"
       v-if="showSidebar"
     >
       <h3 class="hidden">SideBar</h3>
@@ -17,7 +17,9 @@
 
     <div
       class="w-full pr-6 hidden sm:block"
-      :class="!showSidebar ? 'sm:fixed bottom-10 left-0' : ''"
+      :class="
+        !showSidebar ? 'sm:fixed bottom-10 left-0 dark:bg-transparent' : 'dark:sm:bg-black-rock'
+      "
     >
       <SidebarToggler :onClick="handleShowSidebar" :showSidebar="showSidebar" />
     </div>

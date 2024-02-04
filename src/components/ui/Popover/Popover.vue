@@ -5,7 +5,7 @@
     </button>
     <ul
       v-if="isOpen"
-      class="bg-white absolute block mt-5 right-2 top-8 p-4 shadow-md rounded-lg cursor-default w-[192px] z-50"
+      class="bg-white absolute block mt-5 right-2 top-8 p-4 shadow-md rounded-lg cursor-default w-[192px] z-50 dark:bg-black-rock dark:text-alice-blue"
       @click="handleClick"
     >
       <slot name="popmenu" />

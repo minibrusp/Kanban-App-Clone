@@ -4,7 +4,7 @@
     :class="
       !props.showSidebar
         ? 'bg-slate-blue hover:bg-perano w-[52px] py-[18px] pl-[18px] pr-[18px]'
-        : 'bg-white hover:bg-slate-blue/10 w-full'
+        : 'bg-white hover:bg-slate-blue/10 w-full dark:bg-black-rock dark:hover:bg-alice-blue'
     "
     @click="handleClick"
   >

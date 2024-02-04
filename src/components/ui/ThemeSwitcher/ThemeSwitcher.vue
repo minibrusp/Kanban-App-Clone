@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-blue/10 py-[14px] rounded-md dark:bg-black-rock w-full block">
+  <div class="bg-slate-blue/10 py-[14px] rounded-md dark:bg-black-russian w-full block">
     <div class="flex items-center justify-center w-full gap-2">
       <div>
         <svg class="fill-ship-cove" width="19" height="19" xmlns="http://www.w3.org/2000/svg">

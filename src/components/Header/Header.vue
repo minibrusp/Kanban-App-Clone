@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white px-3 flex flex-row justify-start items-center">
+  <header class="bg-white px-3 flex flex-row justify-start items-center dark:bg-black-rock">
     <div
       class="max-w-[40px] overflow-x-hidden pl-[3px] py-4 border-b border-b-transparent sm:min-w-[277px] sm:py-[22px]"
     >
@@ -7,7 +7,7 @@
       <Logo />
     </div>
     <div
-      class="py-4 flex flex-row justify-between items-center w-full sm:border-b sm:border-l sm:border-solitude sm:pl-6 sm:py-[22px]"
+      class="py-4 flex flex-row justify-between items-center w-full sm:border-b sm:border-l sm:border-solitude dark:sm:border-ship-cove/25 sm:pl-6 sm:py-[22px]"
     >
       <BoardHeading />
 

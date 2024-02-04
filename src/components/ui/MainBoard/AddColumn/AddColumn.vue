@@ -1,7 +1,7 @@
 <template>
   <div class="group max-w-[280px] min-w-[280px] mt-[39px] h-[calc(100%_-_39px)] last:pr-6">
     <button
-      class="bg-solitude flex justify-center items-center h-full w-full rounded-lg"
+      class="bg-solitude flex justify-center items-center h-full w-full rounded-lg dark:bg-black-rock/25"
       @click="handleClick"
     >
       <span class="text-ship-cove text-2xl font-bold leading-[30px] group-hover:text-slate-blue"

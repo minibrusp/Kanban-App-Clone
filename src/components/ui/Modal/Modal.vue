@@ -6,7 +6,7 @@
       v-if="props.isOpen"
     >
       <div
-        class="modal bg-white rounded-xl shadow-lg w-full"
+        class="modal bg-white rounded-xl shadow-lg w-full dark:bg-black-rock"
         :class="modalVariantClass"
         @click="(event) => event.stopPropagation()"
       >

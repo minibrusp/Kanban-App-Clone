@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-row justify-between items-center">
-    <h3 class="text-lg font-bold text-black-russian">{{ props.task.title }}</h3>
+    <h3 class="text-lg font-bold text-black-russian dark:text-alice-blue">
+      {{ props.task.title }}
+    </h3>
     <TaskMenu :task="task" />
   </div>
 

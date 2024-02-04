@@ -1,11 +1,11 @@
 <template>
   <div
-    class="group bg-white w-full py-6 px-4 shadow-lg rounded-lg cursor-pointer"
+    class="group bg-white w-full py-6 px-4 shadow-lg rounded-lg cursor-pointer dark:bg-black-rock"
     @click="handleClick"
     tabindex="0"
   >
     <h5
-      class="text-black-russian text-[15px] font-bold leading-[19px] mb-2 group-hover:text-slate-blue"
+      class="text-black-russian text-[15px] font-bold leading-[19px] mb-2 group-hover:text-slate-blue dark:text-alice-blue"
     >
       {{ props.task.title }}
     </h5>

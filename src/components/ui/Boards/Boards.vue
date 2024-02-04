@@ -1,6 +1,6 @@
 <template>
   <h3 class="text-ship-cove uppercase pl-6 text-xs font-bold leading-[15px] tracking-[2.4px]">
-    All Boards (4)
+    All Boards ({{ props.boards.length }})
   </h3>
   <ul class="mt-5 flex flex-col justify-start items-start w-full pr-6">
     <BoardComponent v-for="board in boards" :key="board.id" :name="board.name" :id="board.id" />

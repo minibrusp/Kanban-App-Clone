@@ -1,6 +1,6 @@
 <template>
   <label
-    class="flex flex-row justify-start items-center gap-3 w-full p-3 rounded cursor-pointer hover:bg-slate-blue/25 has-[:checked]:bg-slate-blue/25"
+    class="flex flex-row justify-start items-center gap-3 w-full p-3 rounded cursor-pointer hover:bg-slate-blue/25 has-[:checked]:bg-slate-blue/25 dark:bg-black-russian dark:hover:bg-slate-blue/25"
     tabindex="0"
     @keydown.space="handleClick"
     @keydown.enter="handleClick"
@@ -21,7 +21,7 @@
       </svg>
     </div>
     <span
-      class="text-xs text-black-russian font-bold leading-[15px] peer-checked:text-black-russian/50 peer-checked:line-through"
+      class="text-xs text-black-russian font-bold leading-[15px] peer-checked:text-black-russian/50 peer-checked:line-through dark:text-alice-blue dark:peer-checked:text-ship-cove"
       >{{ props.name }}</span
     >
   </label>

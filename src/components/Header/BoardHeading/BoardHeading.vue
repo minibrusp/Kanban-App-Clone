@@ -1,5 +1,5 @@
 <template>
-  <h2 class="font-bold text-black-russian text-lg">
+  <h2 class="font-bold text-black-russian text-lg dark:text-alice-blue">
     <button
       class="flex flex-row justify-start items-center gap-2 sm:hidden"
       @click="handleBoardModal"

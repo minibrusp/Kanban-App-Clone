@@ -1,9 +1,9 @@
 <template>
-  <h3 class="text-lg font-bold">Add New Column</h3>
+  <h3 class="text-lg font-bold text-black-russian dark:text-alice-blue">Add New Column</h3>
   <form @submit.prevent="submit" class="mt-6 flex flex-col justify-start items-start gap-6">
     <Label title="Name">
       <input
-        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
         type="text"
         name="name"
         placeholder="e.g. Take coffee break"
@@ -18,7 +18,7 @@
         class="flex flex-row justify-start items-center gap-4 w-full"
       >
         <input
-          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
           type="text"
           :placeholder="
             columnsPlaceholders[index] ? columnsPlaceholders[index] : 'Your Column name'
@@ -55,9 +55,8 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, reactive } from 'vue'
+import { reactive } from 'vue'
 import { useKanbanStore } from '../../../../stores/kanbanStore'
-import type Board from '../../../../types/Board'
 
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'

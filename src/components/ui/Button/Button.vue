@@ -28,10 +28,10 @@ const variantClass = computed(() => {
   let result = ''
   switch (props.variant) {
     case 'primary':
-      result = 'bg-slate-blue hover:bg-perano '
+      result = 'bg-slate-blue hover:bg-perano dark:hover:bg-slate-blue '
       break
     case 'secondary':
-      result = 'bg-slate-blue/10 hover:bg-slate-blue/25 '
+      result = 'bg-slate-blue/10 hover:bg-slate-blue/25 dark:bg-alice-blue '
       break
     case 'danger':
       result = 'bg-flamingo hover:bg-flamingo/75 '

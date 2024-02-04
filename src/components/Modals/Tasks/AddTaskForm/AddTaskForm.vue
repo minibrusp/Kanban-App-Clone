@@ -1,9 +1,9 @@
 <template>
-  <h3 class="text-lg font-bold">Add New Task</h3>
+  <h3 class="text-black-russian text-lg font-bold dark:text-alice-blue">Add New Task</h3>
   <form @submit.prevent="handleSubmit" class="mt-6 flex flex-col justify-start items-start gap-6">
     <Label title="Title">
       <input
-        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+        class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
         type="text"
         name="title"
         placeholder="e.g. Take coffee break"
@@ -13,7 +13,7 @@
 
     <Label title="Description">
       <textarea
-        class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-hidden placeholder:text-ship-cove/50 placeholder:font-light"
+        class="w-full border border-ship-cove/30 py-2 px-4 h-28 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded resize-none overflow-y-hidden placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
         placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
         name="description"
         v-model="task.description"
@@ -28,7 +28,7 @@
       >
         <input
           v-if="task.subtasks.length >= 0"
-          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light"
+          class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
           type="text"
           :placeholder="
             subtasksPlaceholders[index] ? subtasksPlaceholders[index] : 'Your Column name'

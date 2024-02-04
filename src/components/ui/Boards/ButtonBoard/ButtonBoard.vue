@@ -1,7 +1,7 @@
 <template>
   <li class="group w-full">
     <button
-      class="group/div bg-white text-slate-blue w-full flex flex-row justify-start items-center gap-3 pl-6 py-[14px] rounded-r-full text-[15px] font-bold leading-[19px] group-hover:bg-alice-blue group-hover:text-slate-blue group-hover:bg-slate-blue/10"
+      class="group/div bg-white text-slate-blue w-full flex flex-row justify-start items-center gap-3 pl-6 py-[14px] rounded-r-full text-[15px] font-bold leading-[19px] group-hover:bg-alice-blue group-hover:text-slate-blue group-hover:bg-slate-blue/10 dark:bg-black-rock dark:group-hover:bg-alice-blue"
       @click="props.onClick"
     >
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" class="fill-slate-blue">
