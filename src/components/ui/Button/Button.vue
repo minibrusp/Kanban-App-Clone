@@ -1,9 +1,10 @@
 <template>
   <button
     :type="buttonType"
-    class="w-full rounded-full"
+    class="group w-full rounded-full"
     :class="variantClass + sizeClass"
     @click="props.onClick"
+    :disabled="props.isDisabled"
   >
     <slot></slot>
   </button>
@@ -16,7 +17,8 @@ const props = defineProps({
   onClick: Function,
   variant: String,
   size: String,
-  type: String
+  type: String,
+  isDisabled: Boolean
 })
 
 const buttonType = computed(() => {
@@ -28,7 +30,8 @@ const variantClass = computed(() => {
   let result = ''
   switch (props.variant) {
     case 'primary':
-      result = 'bg-slate-blue hover:bg-perano dark:hover:bg-slate-blue '
+      result =
+        'bg-slate-blue hover:bg-perano dark:hover:bg-slate-blue disabled:bg-slate-blue/25 disabled:cursor-not-allowed dark:hover:disabled:bg-slate-blue/25 '
       break
     case 'secondary':
       result = 'bg-slate-blue/10 hover:bg-slate-blue/25 dark:bg-alice-blue '

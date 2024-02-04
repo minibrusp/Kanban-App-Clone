@@ -20,7 +20,11 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
   })
 
   const getSelectedBoardColumns = computed(() => {
-    return getSelectedBoard.value.columns
+    return getSelectedBoard.value?.columns
+  })
+
+  const isSelectedBoardEmpty = computed(() => {
+    return getSelectedBoard.value?.columns.length <= 0 ? true : false
   })
 
   // Mutations
@@ -229,6 +233,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     setSelectedBoard,
     getSelectedBoard,
     getSelectedBoardColumns,
+    isSelectedBoardEmpty,
     createNewBoard,
     editBoard,
     deleteBoard,

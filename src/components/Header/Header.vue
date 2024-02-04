@@ -27,4 +27,3 @@ import BoardHeading from './BoardHeading'
 import AddTask from './AddTask'
 import BoardMenu from './BoardMenu'
 </script>
-../ui/MenuIcon
