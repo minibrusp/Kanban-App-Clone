@@ -39,11 +39,24 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     }
 
     try {
-      const res = await fetch('http://localhost:3000/boards')
+      // const res = await fetch('http://localhost:3000/boards')
+
+      const headers = {
+        'X-Master-Key': '$2a$10$VCATkMaDj7LDlb91HqUn0.Df9UIi.z41OI2Em7do7yDbHz.F.qVje',
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+
+      const res = await fetch(`https://api.jsonbin.io/v3/b/65d26d96266cfc3fde8c12af`, {
+        method: 'GET',
+        headers: headers
+      })
+
       const data = await res.json()
 
       if (res.ok) {
-        boards.value = data
+        // boards.value = data
+        boards.value = data.record.boards
         saveBoardToLocalStorage()
       }
     } catch (error) {
