@@ -18,7 +18,9 @@ console.log(kanbanStore.boards)
 </script>
 
 <template>
-  <div class="font-plus-jakarta-sans min-h-full bg-alice-blue dark:bg-black-russian">
+  <div
+    class="font-plus-jakarta-sans min-h-screen flex flex-col bg-alice-blue dark:bg-black-russian"
+  >
     <Header />
     <Main />
   </div>
