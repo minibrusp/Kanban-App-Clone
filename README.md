@@ -24,10 +24,7 @@ TBA
 
 ## Project Links
 
-<!-- - Live Site URL: [here](https://world-ranks-theta-red.vercel.app/) -->
-<!-- - DevChallenges Solution URL: [here](https://devchallenges.io/solution/7596) -->
-
-- Live Site URL: TBA
+- Live Site URL: [here](https://kanban-app-clone.vercel.app/)
 
 ## Status
 
