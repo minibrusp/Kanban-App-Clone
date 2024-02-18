@@ -30,7 +30,7 @@ function closeMenu() {
   console.log('menu closed')
 }
 
-function handleClick(event) {
+function handleClick(event: Event) {
   event.stopPropagation()
   closeMenu()
 }

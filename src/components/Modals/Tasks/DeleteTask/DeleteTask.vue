@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { type PropType } from 'vue'
 import Button from '../../../ui/Button'
-import Task from '../../../../types/Task'
+import type Task from '../../../../types/Task'
 
 import { useKanbanStore } from '../../../../stores/kanbanStore'
 
@@ -36,12 +36,12 @@ const props = defineProps({
 
 function handleDeleteClick() {
   console.log('Delete Task Modal: delete button clicked')
-  kanbanStore.deleteTask(props.task)
-  props.close()
+  kanbanStore.deleteTask(props.task!)
+  props.close!()
 }
 
 function handleCancelClick() {
   console.log('Delete Task Modal: cancel button clicked')
-  props.close()
+  props.close!()
 }
 </script>

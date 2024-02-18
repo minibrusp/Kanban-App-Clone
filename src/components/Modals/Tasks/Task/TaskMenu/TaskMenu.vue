@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, PropType } from 'vue'
+import { ref, type PropType } from 'vue'
 import type Task from '../../../../../types/Task'
 import MenuIcon from '../../../../ui/MenuIcon'
 import Popover from '../../../../ui/Popover'

@@ -7,11 +7,11 @@
     <h5
       class="text-black-russian text-[15px] font-bold leading-[19px] mb-2 group-hover:text-slate-blue dark:text-alice-blue"
     >
-      {{ props.task.title }}
+      {{ props.task!.title }}
     </h5>
     <p class="text-ship-cove text-xs font-bold leading-[15px]">
-      <span v-if="props.task.subtasks">
-        {{ completedSubtasks }} of {{ props.task.subtasks.length }} subtasks
+      <span v-if="props.task!.subtasks">
+        {{ completedSubtasks }} of {{ props.task!.subtasks.length }} subtasks
       </span>
       <span v-else> 0 of 0 subtasks </span>
     </p>
@@ -25,7 +25,7 @@
 import Modal from '../../Modal'
 import useModal from '../../../../composables/useModal'
 import { default as TaskComponent } from '../../../Modals/Tasks/Task'
-import { PropType, computed } from 'vue'
+import { type PropType, computed } from 'vue'
 import type Task from '../../../../types/Task'
 
 const props = defineProps({
@@ -35,14 +35,14 @@ const props = defineProps({
 })
 
 const completedSubtasks = computed(() => {
-  let completed = props.task.subtasks.filter((task) => task.isCompleted)
+  let completed = props.task!.subtasks.filter((task) => task.isCompleted)
   return completed.length
 })
 
 const { isOpen, toggleModal, closeModal } = useModal()
 
 function handleClick() {
-  console.log('Task clicked:' + props.task.title)
+  console.log('Task clicked:' + props.task!.title)
   toggleModal()
 }
 </script>

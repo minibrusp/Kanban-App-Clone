@@ -44,7 +44,7 @@
     </Label>
 
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="primary" size="medium" :onClick="handleSubmit">
+      <Button type="submit" variant="primary" size="medium">
         <span class="text-alice-blue font-bold text-[13px]">Save Changes</span>
       </Button>
       <Button variant="secondary" size="medium" :onClick="handleCancelForm">
@@ -61,6 +61,8 @@ import { useKanbanStore } from '../../../../stores/kanbanStore'
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
 
+import type Board from '../../../../types/Board'
+
 import { storeToRefs } from 'pinia'
 
 const kanbanStore = useKanbanStore()
@@ -70,17 +72,13 @@ const props = defineProps({
   close: Function
 })
 
-const board = reactive({
+const board: Board = reactive({
   id: JSON.parse(JSON.stringify(getSelectedBoard.value.id)),
   name: JSON.parse(JSON.stringify(getSelectedBoard.value.name)),
   columns: JSON.parse(JSON.stringify(getSelectedBoard.value.columns))
 })
 
-const columnsPlaceholders = {
-  0: 'e.g. Todo...',
-  1: 'e.g. Doing...',
-  2: 'e.g. Done...'
-}
+const columnsPlaceholders = ['e.g. Todo...', 'e.g. Doing...', 'e.g. Done...']
 
 function handleAddColumn() {
   console.log('Add new column clicked')
@@ -98,20 +96,13 @@ function handleDeleteColumn(index: number) {
   })
 }
 
-function handleSubmit() {
-  console.log('Create Board Submit clicked')
-  kanbanStore.editBoard(board)
-  props.close()
-}
-
 function handleCancelForm() {
-  props.close()
+  props.close!()
 }
 
-// sdsadksladksaldksa
-
-function submit(e) {
-  e.preventDefault()
-  console.log('form submit')
+function submit() {
+  console.log('Add new Column Board form Submit clicked')
+  kanbanStore.editBoard(board)
+  props.close!()
 }
 </script>

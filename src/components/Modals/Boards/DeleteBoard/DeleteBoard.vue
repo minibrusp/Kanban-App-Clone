@@ -31,6 +31,6 @@ const props = defineProps({
 
 function handleDelete() {
   kanbanStore.deleteBoard()
-  props.close()
+  props.close!()
 }
 </script>

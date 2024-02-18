@@ -34,12 +34,14 @@ const props = defineProps({
   isCompeleted: Boolean
 })
 
-function handleChange(e) {
-  props.onChange(e.target.name)
+function handleChange(e: Event) {
+  let target = e.target as HTMLInputElement
+  props.onChange!(target.name)
 }
 
-function handleClick(e) {
-  let checkbox = e.target.querySelector('input')
-  checkbox.checked = !checkbox.checked
+function handleClick(e: Event) {
+  let target = e.target as HTMLLabelElement
+  let checkbox = target.querySelector('input')
+  checkbox!.checked = !checkbox!.checked
 }
 </script>

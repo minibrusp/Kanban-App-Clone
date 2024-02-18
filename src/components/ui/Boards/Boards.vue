@@ -1,6 +1,6 @@
 <template>
   <h3 class="text-ship-cove uppercase pl-6 text-xs font-bold leading-[15px] tracking-[2.4px]">
-    All Boards ({{ props.boards.length }})
+    All Boards ({{ props.boards!.length || '0' }})
   </h3>
   <ul class="mt-5 flex flex-col justify-start items-start w-full pr-6">
     <BoardComponent v-for="board in boards" :key="board.id" :name="board.name" :id="board.id" />
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
+import { type PropType } from 'vue'
 import { default as BoardComponent } from './Board'
 import ButtonBoard from './ButtonBoard'
 import type Board from '../../../types/Board'
@@ -27,6 +27,6 @@ const props = defineProps({
 
 function handleClick() {
   console.log('Create new Board Clicked')
-  props.openCreateBoardFormModal()
+  if (props.openCreateBoardFormModal) props.openCreateBoardFormModal()
 }
 </script>

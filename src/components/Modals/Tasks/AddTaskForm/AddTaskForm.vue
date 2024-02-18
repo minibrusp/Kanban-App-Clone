@@ -78,6 +78,9 @@ import { useKanbanStore } from '../../../../stores/kanbanStore'
 
 import { storeToRefs } from 'pinia'
 
+import { type subtask as typeSubtask } from '../../../../types/Task'
+import type Task from '../../../../types/Task'
+
 const kanbanStore = useKanbanStore()
 const { getSelectedBoard } = storeToRefs(kanbanStore)
 
@@ -85,7 +88,7 @@ const props = defineProps({
   close: Function
 })
 
-const task = reactive({
+const task: Task = reactive({
   id: '',
   title: '',
   description: '',
@@ -93,15 +96,12 @@ const task = reactive({
   subtasks: []
 })
 
-const subtasksPlaceholders = {
-  0: 'e.g. Todo...',
-  1: 'e.g. Doing...',
-  2: 'e.g. Done...'
-}
+const subtasksPlaceholders = ['e.g. Todo...', 'e.g. Doing...', 'e.g. Done...']
 
 function handleAddSubtask() {
   console.log('Add new column clicked')
-  task.subtasks.push({ title: '', isCompleted: false })
+  let subtask: typeSubtask = { title: '', isCompleted: false }
+  task.subtasks.push(subtask)
 }
 
 function handleDeleteSubtask(index: number) {
@@ -120,6 +120,6 @@ function handleSubmit() {
   console.log(task)
 
   kanbanStore.addNewTask(task)
-  props.close()
+  props.close!()
 }
 </script>

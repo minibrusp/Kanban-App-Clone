@@ -208,7 +208,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
                 ...task,
                 subtasks: [
                   ...task.subtasks.map((subtask) => {
-                    if (subtask.title !== subtaskTitle) return subtask
+                    if (subtask.title.toLowerCase() !== subtaskTitle) return subtask
                     return {
                       ...subtask,
                       isCompleted: !subtask.isCompleted

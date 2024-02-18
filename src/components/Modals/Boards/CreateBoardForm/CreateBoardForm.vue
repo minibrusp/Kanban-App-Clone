@@ -63,22 +63,20 @@ import { useKanbanStore } from '../../../../stores/kanbanStore'
 import { reactive } from 'vue'
 import FieldSet from '../../../ui/Form/FieldSet'
 
+import type Column from '../../../../types/Column'
+
 const kanbanStore = useKanbanStore()
 
 const props = defineProps({
   close: Function
 })
 
-const board = reactive({
+const board: { name: String; columns: Column[] } = reactive({
   name: '',
   columns: []
 })
 
-const columnsPlaceholders = {
-  0: 'e.g. Todo...',
-  1: 'e.g. Doing...',
-  2: 'e.g. Done...'
-}
+const columnsPlaceholders = ['e.g. Todo...', 'e.g. Doing...', 'e.g. Done...']
 
 function handleAddColumn() {
   console.log('Add new column clicked')
@@ -99,10 +97,10 @@ function handleDeleteColumn(index: number) {
 function handleSubmit() {
   console.log('Create Board Submit clicked')
   kanbanStore.createNewBoard(board)
-  props.close()
+  props.close!()
 }
 
 function handleCancelForm() {
-  props.close()
+  props.close!()
 }
 </script>

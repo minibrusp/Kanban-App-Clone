@@ -45,6 +45,6 @@ const props = defineProps({
 })
 
 function handleClick() {
-  props.onClick()
+  props.onClick!()
 }
 </script>

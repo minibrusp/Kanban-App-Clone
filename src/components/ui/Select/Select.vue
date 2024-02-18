@@ -20,7 +20,8 @@ const props = defineProps({
   changeHandler: Function
 })
 
-function handleChange(e) {
-  props.changeHandler(e.target.value)
+function handleChange(e: Event) {
+  let target = e.target as HTMLSelectElement
+  props.changeHandler!(target.value)
 }
 </script>

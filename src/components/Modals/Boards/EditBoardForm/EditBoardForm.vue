@@ -64,6 +64,8 @@ import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
 import FieldSet from '../../../ui/Form/FieldSet'
 
+import type Board from '../../../../types/Board'
+
 import { storeToRefs } from 'pinia'
 
 const kanbanStore = useKanbanStore()
@@ -73,17 +75,13 @@ const props = defineProps({
   close: Function
 })
 
-const board = reactive({
+const board: Board = reactive({
   id: JSON.parse(JSON.stringify(getSelectedBoard.value.id)),
   name: JSON.parse(JSON.stringify(getSelectedBoard.value.name)),
   columns: JSON.parse(JSON.stringify(getSelectedBoard.value.columns))
 })
 
-const columnsPlaceholders = {
-  0: 'e.g. Todo...',
-  1: 'e.g. Doing...',
-  2: 'e.g. Done...'
-}
+const columnsPlaceholders = ['e.g. Todo...', 'e.g. Doing...', 'e.g. Done...']
 
 function handleAddColumn() {
   console.log('Add new column clicked')
@@ -104,10 +102,10 @@ function handleDeleteColumn(index: number) {
 function handleSubmit() {
   console.log('Create Board Submit clicked')
   kanbanStore.editBoard(board)
-  props.close()
+  props.close!()
 }
 
 function handleCancelForm() {
-  props.close()
+  props.close!()
 }
 </script>

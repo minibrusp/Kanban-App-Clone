@@ -41,6 +41,7 @@ const props = defineProps({
 })
 
 function handleChange() {
+  if (!props.id) return
   kanbanStore.setSelectedBoard(props.id)
 }
 </script>

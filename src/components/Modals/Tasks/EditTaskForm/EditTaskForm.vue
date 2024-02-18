@@ -23,7 +23,7 @@
     <Label title="Subtasks">
       <div
         v-for="(subtask, index) in localTask.subtasks"
-        :key="subtask.index"
+        :key="index"
         class="flex flex-row justify-start items-center gap-4 w-full"
       >
         <input
@@ -33,7 +33,7 @@
             subtasksPlaceholders[index] ? subtasksPlaceholders[index] : 'Your Column name'
           "
           v-model="subtask.title"
-          :name="subtask.index"
+          :name="subtask.title"
         />
         <button type="button" @click="handleDeleteSubtask(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
@@ -57,7 +57,7 @@
           v-for="status in getSelectedBoardColumns"
           :key="status.id"
           :value="status.name"
-          :selected="props.task.status === status.name ? true : false"
+          :selected="props.task!.status === status.name ? true : false"
         >
           {{ status.name }}
         </option>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, reactive } from 'vue'
+import { type PropType, reactive } from 'vue'
 import type Task from '../../../../types/Task'
 import Button from '../../../ui/Button'
 import Label from '../../../ui/Form/Label'
@@ -92,19 +92,15 @@ const props = defineProps({
   close: Function
 })
 
-const localTask = reactive({
-  id: JSON.parse(JSON.stringify(props.task.id)),
-  title: JSON.parse(JSON.stringify(props.task.title)),
-  description: JSON.parse(JSON.stringify(props.task.description)),
-  status: JSON.parse(JSON.stringify(props.task.status)),
-  subtasks: JSON.parse(JSON.stringify(props.task.subtasks))
+const localTask: Task = reactive({
+  id: JSON.parse(JSON.stringify(props.task!.id)),
+  title: JSON.parse(JSON.stringify(props.task!.title)),
+  description: JSON.parse(JSON.stringify(props.task!.description)),
+  status: JSON.parse(JSON.stringify(props.task!.status)),
+  subtasks: JSON.parse(JSON.stringify(props.task!.subtasks))
 })
 
-const subtasksPlaceholders = {
-  0: 'e.g. Todo...',
-  1: 'e.g. Doing...',
-  2: 'e.g. Done...'
-}
+const subtasksPlaceholders = ['e.g. Todo...', 'e.g. Doing...', 'e.g. Done...']
 
 function handleAddSubtask() {
   console.log('Add new column clicked')
@@ -124,7 +120,7 @@ function handleStatusChange(value: string) {
 
 function handleSubmit() {
   console.log('Create Task clicked')
-  kanbanStore.editTask(localTask, props.task)
-  props.close()
+  kanbanStore.editTask(localTask, props.task!)
+  props.close!()
 }
 </script>
