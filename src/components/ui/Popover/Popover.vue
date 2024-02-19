@@ -1,6 +1,10 @@
 <template>
   <div class="relative" v-on-click-outside="closeMenu">
-    <button class="p-2" @click="toggleMenu">
+    <button
+      class="p-2 disabled:cursor-not-allowed disabled:opacity-50"
+      @click="toggleMenu"
+      :disabled="props.isDisabled ? true : false"
+    >
       <slot name="icon" />
     </button>
     <ul
@@ -18,6 +22,10 @@ import { ref } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 
 const isOpen = ref(false)
+
+const props = defineProps({
+  isDisabled: Boolean
+})
 
 function toggleMenu() {
   isOpen.value = !isOpen.value

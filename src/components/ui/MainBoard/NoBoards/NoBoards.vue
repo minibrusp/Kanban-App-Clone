@@ -1,16 +1,11 @@
 <template>
   <div class="flex flex-col justify-center items-center gap-8">
     <h3 class="text-ship-cove font-bold text-lg">
-      This board is empty. Create a new column to get started.
+      This kanban is empty. Create a new board to get started.
     </h3>
 
     <div class="w-full px-40">
-      <Button
-        variant="primary"
-        size="large"
-        :onClick="handleClickButton"
-        :isDisabled="isBoardsEmpty"
-      >
+      <Button variant="primary" size="large" :onClick="handleClickButton">
         <span class="sm:hidden">
           <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -19,11 +14,11 @@
             ></path>
           </svg>
         </span>
-        <span class="hidden sm:block text-white text-sm font-bold">&plus; Add New Column</span>
+        <span class="hidden sm:block text-white text-sm font-bold">&plus; Create New Board</span>
       </Button>
 
       <Modal :isOpen="isOpen" :close="closeModal">
-        <AddColumnBoardForm :close="closeModal" />
+        <CreateBoardForm :close="closeModal" />
       </Modal>
     </div>
   </div>
@@ -33,12 +28,7 @@
 import Button from '../../Button'
 import Modal from '../../Modal'
 import useModal from '../../../../composables/useModal'
-import AddColumnBoardForm from '../../../Modals/Boards/AddColumnBoardForm'
-import { useKanbanStore } from '../../../../stores/kanbanStore'
-import { storeToRefs } from 'pinia'
-
-const kanbanStore = useKanbanStore()
-const { isBoardsEmpty } = storeToRefs(kanbanStore)
+import CreateBoardForm from '../../../Modals/Boards/CreateBoardForm'
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

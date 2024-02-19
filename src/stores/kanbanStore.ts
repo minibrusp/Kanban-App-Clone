@@ -7,8 +7,8 @@ import type Task from '@/types/Task'
 const BOARDS_LOCAL_STORAGE_KEY = 'boards'
 
 export const useKanbanStore = defineStore('kanbanStore', () => {
-  const boards = ref<Board[]>([])
-  const selectedBoard = ref('0')
+  const boards = ref<Board[] | []>([])
+  const selectedBoard = ref<string | null>(null)
   const error = ref('')
   const loading = ref(false)
 
@@ -27,6 +27,10 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     return getSelectedBoard.value?.columns.length <= 0 ? true : false
   })
 
+  const isBoardsEmpty = computed(() => {
+    return boards.value.length <= 0 ? true : false
+  })
+
   // Mutations
   // Boards
 
@@ -35,6 +39,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
 
     if (localStorageBoard) {
       boards.value = JSON.parse(localStorageBoard)
+      selectedBoard.value = boards.value.length ? `${boards.value[0].id}` : null
       return
     }
 
@@ -57,6 +62,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
       if (res.ok) {
         // boards.value = data
         boards.value = data.record.boards
+        selectedBoard.value = boards.value.length ? `${boards.value[0].id}` : null
         saveBoardToLocalStorage()
       }
     } catch (error) {
@@ -65,7 +71,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     }
   }
 
-  function setSelectedBoard(id: string) {
+  function setSelectedBoard(id: string | null) {
     selectedBoard.value = id
   }
 
@@ -101,8 +107,12 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
 
   function deleteBoard() {
     const id = getSelectedBoard.value.id
+    if (boards.value.length > 0) setSelectedBoard(boards.value[0].id)
+    else {
+      setSelectedBoard(null)
+      boards.value = []
+    }
     boards.value = boards.value.filter((board) => board.id !== id)
-    setSelectedBoard('0')
 
     saveBoardToLocalStorage()
   }
@@ -247,6 +257,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     getSelectedBoard,
     getSelectedBoardColumns,
     isSelectedBoardEmpty,
+    isBoardsEmpty,
     createNewBoard,
     editBoard,
     deleteBoard,

@@ -8,6 +8,7 @@
         name="name"
         placeholder="e.g. Take coffee break"
         v-model="board.name"
+        required
       />
     </Label>
 
@@ -25,6 +26,7 @@
           "
           v-model="column.name"
           :name="column.name"
+          required
         />
         <button type="button" @click="handleDeleteColumn(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">

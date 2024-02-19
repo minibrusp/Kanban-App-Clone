@@ -30,7 +30,7 @@ const props = defineProps({
 })
 
 function handleDelete() {
-  kanbanStore.deleteBoard()
   props.close!()
+  kanbanStore.deleteBoard()
 }
 </script>

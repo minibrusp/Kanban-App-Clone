@@ -3,7 +3,7 @@
     :onClick="handleClickButton"
     variant="primary"
     size="large"
-    :isDisabled="isSelectedBoardEmpty"
+    :isDisabled="isSelectedBoardEmpty || isBoardsEmpty"
   >
     <span class="min-[700px]:hidden">
       <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@ import { useKanbanStore } from '../../../stores/kanbanStore'
 import { storeToRefs } from 'pinia'
 
 const kanbanStore = useKanbanStore()
-const { isSelectedBoardEmpty } = storeToRefs(kanbanStore)
+const { isSelectedBoardEmpty, isBoardsEmpty } = storeToRefs(kanbanStore)
 
 const { isOpen, toggleModal, closeModal } = useModal()
 

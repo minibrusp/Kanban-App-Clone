@@ -1,5 +1,5 @@
 <template>
-  <Popover>
+  <Popover :isDisabled="isBoardsEmpty">
     <template #icon>
       <MenuIcon />
 
@@ -27,9 +27,15 @@ import useModal from '../../../composables/useModal'
 import EditBoardForm from '../../Modals/Boards/EditBoardForm'
 import DeleteBoard from '../../Modals/Boards/DeleteBoard'
 
+import { useKanbanStore } from '../../../stores/kanbanStore'
+import { storeToRefs } from 'pinia'
+
 const { isOpen, toggleModal, closeModal } = useModal()
 
 const selected = ref('')
+
+const kanbanStore = useKanbanStore()
+const { isBoardsEmpty } = storeToRefs(kanbanStore)
 
 function handleEditBoard() {
   selected.value = 'edit'

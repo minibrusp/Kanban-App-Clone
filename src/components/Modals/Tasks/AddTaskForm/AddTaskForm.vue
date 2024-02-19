@@ -8,6 +8,7 @@
         name="title"
         placeholder="e.g. Take coffee break"
         v-model="task.title"
+        required
       />
     </Label>
 
@@ -17,6 +18,7 @@
         placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
         name="description"
         v-model="task.description"
+        required
       />
     </Label>
 
@@ -35,6 +37,7 @@
           "
           :name="subtask.title"
           v-model="subtask.title"
+          required
         />
         <button type="button" @click="handleDeleteSubtask(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">

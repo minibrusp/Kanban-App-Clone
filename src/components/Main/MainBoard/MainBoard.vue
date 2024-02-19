@@ -13,6 +13,12 @@
       />
       <AddColumn />
     </div>
+    <div
+      v-else-if="isBoardsEmpty"
+      class="flex flex-col justify-center items-center gap-6 w-full h-full"
+    >
+      <NoBoards />
+    </div>
     <div v-else class="flex flex-col justify-center items-center gap-6 w-full h-full">
       <EmptyBoard />
     </div>
@@ -23,9 +29,10 @@
 import BoardColumn from '../../ui/MainBoard/BoardColumn'
 import AddColumn from '../../ui/MainBoard/AddColumn'
 import EmptyBoard from '../../ui/MainBoard/EmptyBoard'
+import NoBoards from '../../ui/MainBoard/NoBoards'
 import { useKanbanStore } from '../../../stores/kanbanStore'
 import { storeToRefs } from 'pinia'
 
 const kanbanStore = useKanbanStore()
-const { getSelectedBoard } = storeToRefs(kanbanStore)
+const { getSelectedBoard, isBoardsEmpty } = storeToRefs(kanbanStore)
 </script>

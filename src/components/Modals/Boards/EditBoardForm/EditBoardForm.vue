@@ -2,7 +2,7 @@
   <h3 class="text-lg font-bold text-black-russian dark:bg-black-rock dark:text-alice-blue">
     Edit Board
   </h3>
-  <form @submit.prevent="" class="mt-6 flex flex-col justify-start items-start gap-6">
+  <form @submit.prevent="handleSubmit" class="mt-6 flex flex-col justify-start items-start gap-6">
     <Label title="Name">
       <input
         class="w-full border border-ship-cove/30 py-2 px-4 text-[13px] font-medium leading-[23px] focus-visible:border-slate-blue outline-none rounded placeholder:text-ship-cove/50 placeholder:font-light dark:bg-black-rock dark:text-alice-blue"
@@ -10,6 +10,7 @@
         name="name"
         placeholder="e.g. Take coffee break"
         v-model="board.name"
+        required
       />
     </Label>
 
@@ -27,6 +28,7 @@
           "
           v-model="column.name"
           :name="column.name"
+          required
         />
         <button type="button" @click="handleDeleteColumn(index)">
           <svg width="15" height="15" fill="#828FA3" xmlns="http://www.w3.org/2000/svg" class="">
@@ -46,7 +48,7 @@
     </FieldSet>
 
     <div class="w-full flex flex-row justify-start items-center gap-4">
-      <Button variant="primary" size="medium" :onClick="handleSubmit">
+      <Button type="submit" variant="primary" size="medium">
         <span class="text-alice-blue font-bold text-[13px]">Save Changes</span>
       </Button>
       <Button variant="secondary" size="medium" :onClick="handleCancelForm">
