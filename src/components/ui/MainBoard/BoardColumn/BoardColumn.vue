@@ -7,17 +7,33 @@
       </h4>
     </div>
     <ul class="flex flex-col justify-start items-center gap-5 pb-6">
-      <li v-for="task in props.column!.tasks" :key="task.id" class="w-full">
-        <TaskThumbnail :task="task" />
-      </li>
+      <draggable
+        class="list-group w-full h-screen flex flex-col justify-start items-center gap-4"
+        v-model="props.column!.tasks"
+        group="columns"
+        itemKey="id"
+        ghost-class="ghost"
+        @change="handleChange"
+      >
+        <template #item="{ element }">
+          <li class="list-group-item w-full" :key="element.id">
+            <TaskThumbnail :task="element" />
+          </li>
+        </template>
+      </draggable>
     </ul>
   </section>
 </template>
 
 <script setup lang="ts">
 import { type PropType } from 'vue'
+import draggable from 'vuedraggable'
 import TaskThumbnail from '../../Task/TaskThumbnail'
 import type Column from '../../../../types/Column'
+
+import { useKanbanStore } from '../../../../stores/kanbanStore'
+
+const kanbanStore = useKanbanStore()
 
 const props = defineProps({
   column: {
@@ -31,4 +47,14 @@ function mapColor() {
   let colors = ['bg-summer-sky', 'bg-slate-blue', 'bg-medium-aquamarine']
   return colors[remainder]
 }
+
+function handleChange() {
+  kanbanStore.saveBoardToLocalStorage()
+}
 </script>
+
+<style>
+.ghost {
+  opacity: 0.1;
+}
+</style>

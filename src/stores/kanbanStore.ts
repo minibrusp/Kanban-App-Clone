@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type Board from '@/types/Board'
 import type Task from '@/types/Task'
+import type Column from '@/types/Column'
 
 const BOARDS_LOCAL_STORAGE_KEY = 'boards'
 
@@ -212,6 +213,25 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     saveBoardToLocalStorage()
   }
 
+  function sortTask(currentColumn: Column) {
+    const selectedBoardId = getSelectedBoard.value.id
+
+    boards.value = boards.value.map((board) => {
+      if (board.id !== selectedBoardId) return board
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== currentColumn.name) return column
+          return {
+            ...column
+          }
+        })
+      }
+    })
+
+    saveBoardToLocalStorage()
+  }
+
   // subtasks
 
   function toggleSubtaskIsCompleted(currentTask: Task, subtaskTitle: string) {
@@ -265,6 +285,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     editTask,
     deleteTask,
     setTaskStatus,
-    toggleSubtaskIsCompleted
+    sortTask,
+    toggleSubtaskIsCompleted,
+    saveBoardToLocalStorage
   }
 })
