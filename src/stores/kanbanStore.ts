@@ -213,7 +213,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     saveBoardToLocalStorage()
   }
 
-  function sortTask(currentColumn: Column) {
+  function sortTask(columnName: string, targetTask: Task) {
     const selectedBoardId = getSelectedBoard.value.id
 
     boards.value = boards.value.map((board) => {
@@ -221,9 +221,16 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
       return {
         ...board,
         columns: board.columns.map((column) => {
-          if (column.name !== currentColumn.name) return column
+          if (column.name !== columnName) return column
           return {
-            ...column
+            ...column,
+            tasks: column.tasks.map((task) => {
+              if (task.id !== targetTask.id) return task
+              return {
+                ...task,
+                status: columnName
+              }
+            })
           }
         })
       }

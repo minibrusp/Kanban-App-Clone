@@ -14,6 +14,8 @@
         itemKey="id"
         ghost-class="ghost"
         @change="handleChange"
+        :move="onMoveCallback"
+        :id="props.column!.name"
       >
         <template #item="{ element }">
           <li class="list-group-item w-full" :key="element.id">
@@ -26,12 +28,13 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType } from 'vue'
+import { ref, type PropType } from 'vue'
 import draggable from 'vuedraggable'
 import TaskThumbnail from '../../Task/TaskThumbnail'
 import type Column from '../../../../types/Column'
 
 import { useKanbanStore } from '../../../../stores/kanbanStore'
+import Task from '../../../../types/Task'
 
 const kanbanStore = useKanbanStore()
 
@@ -42,6 +45,9 @@ const props = defineProps({
   index: Number
 })
 
+const targetList = ref<string | null>(null)
+const targetTask = ref<Task | null>(null)
+
 function mapColor() {
   let remainder = props.index! % 3
   let colors = ['bg-summer-sky', 'bg-slate-blue', 'bg-medium-aquamarine']
@@ -49,7 +55,14 @@ function mapColor() {
 }
 
 function handleChange() {
-  kanbanStore.saveBoardToLocalStorage()
+  kanbanStore.sortTask(targetList.value, targetTask.value)
+  targetTask.value = null
+  targetList.value = null
+}
+
+function onMoveCallback(event) {
+  targetList.value = event.to!.id
+  targetTask.value = event.draggedContext.element
 }
 </script>
 
