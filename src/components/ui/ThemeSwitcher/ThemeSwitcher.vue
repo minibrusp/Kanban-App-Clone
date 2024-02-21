@@ -41,17 +41,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useKanbanStore } from '../../../stores/kanbanStore'
 
-const isDarkTheme = ref(false)
+const kanbanStore = useKanbanStore()
+
+const { isDarkTheme } = storeToRefs(kanbanStore)
+
+// const isDarkTheme = ref(false)
 
 function handleChange() {
   toggleTheme()
 }
 
 function toggleTheme() {
-  isDarkTheme.value = !isDarkTheme.value
-  if (document.body.classList.contains('dark')) return document.body.classList.remove('dark')
-  document.body.classList.add('dark')
+  kanbanStore.toggleTheme()
 }
 </script>

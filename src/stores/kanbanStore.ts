@@ -3,15 +3,16 @@ import { computed, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type Board from '@/types/Board'
 import type Task from '@/types/Task'
-import type Column from '@/types/Column'
 
 const BOARDS_LOCAL_STORAGE_KEY = 'boards'
+const THEME_LOCAL_STORAGE_KEY = 'theme'
 
 export const useKanbanStore = defineStore('kanbanStore', () => {
   const boards = ref<Board[] | []>([])
   const selectedBoard = ref<string | null>(null)
   const error = ref('')
   const loading = ref(false)
+  const isDarkTheme = ref(false)
 
   // Getters
   // Boards
@@ -275,6 +276,37 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     saveBoardToLocalStorage()
   }
 
+  // color theme
+
+  function checkThemeInLocalStorage() {
+    const localStorageTheme = localStorage.getItem(THEME_LOCAL_STORAGE_KEY)
+
+    if (localStorageTheme) {
+      isDarkTheme.value = JSON.parse(localStorageTheme)
+
+      isDarkTheme.value == true ? toggleDarkClassToBody() : (isDarkTheme.value = false)
+    }
+    saveThemeToLocalStorage()
+  }
+
+  function toggleTheme() {
+    isDarkTheme.value = !isDarkTheme.value
+    toggleDarkClassToBody()
+  }
+
+  function toggleDarkClassToBody() {
+    if (document.body.classList.contains('dark')) {
+      document.body.classList.remove('dark')
+    } else {
+      document.body.classList.add('dark')
+    }
+    saveThemeToLocalStorage()
+  }
+
+  function saveThemeToLocalStorage() {
+    localStorage.setItem(THEME_LOCAL_STORAGE_KEY, JSON.stringify(isDarkTheme.value))
+  }
+
   return {
     boards,
     getBoards,
@@ -285,6 +317,7 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     getSelectedBoardColumns,
     isSelectedBoardEmpty,
     isBoardsEmpty,
+    isDarkTheme,
     createNewBoard,
     editBoard,
     deleteBoard,
@@ -294,6 +327,8 @@ export const useKanbanStore = defineStore('kanbanStore', () => {
     setTaskStatus,
     sortTask,
     toggleSubtaskIsCompleted,
-    saveBoardToLocalStorage
+    saveBoardToLocalStorage,
+    checkThemeInLocalStorage,
+    toggleTheme
   }
 })

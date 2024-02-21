@@ -12,6 +12,7 @@ const kanbanStore = useKanbanStore()
 
 onMounted(() => {
   kanbanStore.getBoards()
+  kanbanStore.checkThemeInLocalStorage()
 })
 
 console.log(kanbanStore.boards)
