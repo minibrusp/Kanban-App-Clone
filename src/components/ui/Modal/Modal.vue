@@ -6,8 +6,8 @@
       v-if="props.isOpen"
     >
       <div
-        class="modal bg-white rounded-xl shadow-lg w-full overflow-scroll	max-h-[90vw] dark:bg-black-rock"
-        :class="modalVariantClass"
+        class="modal bg-white rounded-xl shadow-lg w-full max-h-[95vh] overflow-y-auto dark:bg-black-rock"
+        :class="modalVariantClass "
         @click="(event) => event.stopPropagation()"
       >
         <slot></slot>
@@ -38,3 +38,13 @@ const modalVariantClass = computed(() => {
   return result
 })
 </script>
+
+<style>
+  .modal::-webkit-scrollbar-track {
+    @apply rounded-r-xl;
+  }
+
+  .modal::-webkit-scrollbar-thumb {
+    @apply bg-slate-blue rounded-l-lg rounded-r-xl;
+  }
+</style>

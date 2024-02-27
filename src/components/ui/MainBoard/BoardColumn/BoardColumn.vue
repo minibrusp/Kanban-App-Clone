@@ -6,9 +6,9 @@
         {{ props.column!.name }} ({{ props.column!.tasks.length }})
       </h4>
     </div>
-    <ul class="flex flex-col justify-start items-center gap-5 pb-6">
+    <ul class="flex flex-col justify-start items-center gap-5 pb-6 min-h-[calc(100%_-_15px)]">
       <draggable
-        class="list-group w-full h-screen flex flex-col justify-start items-center gap-4"
+        class="list-group w-full min-h-[calc(75vh)] flex flex-col justify-start items-center gap-4"
         v-model="props.column!.tasks"
         group="columns"
         itemKey="id"

@@ -1,5 +1,5 @@
 <template>
-  <section class="p-6 h-full overflow-scroll w-full">
+  <section class="p-6 h-full overflow-auto w-full">
     <h3 class="hidden">Main Board</h3>
     <div
       v-if="getSelectedBoard?.columns.length > 0"
